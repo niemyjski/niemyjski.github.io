@@ -1,1 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>RSS on Blake Niemyjski</title><link>https://blakeniemyjski.com/tags/rss/</link><description>Recent content in RSS on Blake Niemyjski</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 17 Jul 2006 17:38:47 +0000</lastBuildDate><atom:link href="https://blakeniemyjski.com/tags/rss/index.xml" rel="self" type="application/rss+xml"/><item><title>Working with the Microsoft Windows RSS Platform (C#)</title><link>https://blakeniemyjski.com/programming/working-with-the-microsoft-windows-rss-platform-csharp/</link><pubDate>Mon, 17 Jul 2006 17:38:47 +0000</pubDate><guid>https://blakeniemyjski.com/programming/working-with-the-microsoft-windows-rss-platform-csharp/</guid><description>If you don&amp;rsquo;t know what RSS is, then you have been hiding under a pretty big rock lately. A lot of Microsoft&amp;rsquo;s products are currently out or are coming out in the next year use the Windows RSS platform. To name a few of these products off the top of my head are as follows: IE7, Office 2007, Windows Live Mail Desktop, and Windows Vista. I&amp;rsquo;m pretty sure that sometime in the next couple of years you will more than likely be working with RSS in one or more of your applications.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>RSS on Blake Niemyjski</title>
+    <link>https://blakeniemyjski.com/tags/rss/</link>
+    <description>Recent content in RSS on Blake Niemyjski</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 17 Jul 2006 17:38:47 +0000</lastBuildDate>
+    
+	<atom:link href="https://blakeniemyjski.com/tags/rss/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Working with the Microsoft Windows RSS Platform (C#)</title>
+      <link>https://blakeniemyjski.com/programming/working-with-the-microsoft-windows-rss-platform-csharp/</link>
+      <pubDate>Mon, 17 Jul 2006 17:38:47 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/working-with-the-microsoft-windows-rss-platform-csharp/</guid>
+      <description>If you don&amp;rsquo;t know what RSS is, then you have been hiding under a pretty big rock lately. A lot of Microsoft&amp;rsquo;s products are currently out or are coming out in the next year use the Windows RSS platform. To name a few of these products off the top of my head are as follows: IE7, Office 2007, Windows Live Mail Desktop, and Windows Vista. I&amp;rsquo;m pretty sure that sometime in the next couple of years you will more than likely be working with RSS in one or more of your applications.</description>
+    </item>
+    
+  </channel>
+</rss>

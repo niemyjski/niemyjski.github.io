@@ -1,1 +1,123 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tags on Blake Niemyjski</title><link>https://blakeniemyjski.com/tags/</link><description>Recent content in Tags on Blake Niemyjski</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 17 Oct 2014 14:47:13 +0000</lastBuildDate><atom:link href="https://blakeniemyjski.com/tags/index.xml" rel="self" type="application/rss+xml"/><item><title>Software Review</title><link>https://blakeniemyjski.com/tags/software-review/</link><pubDate>Fri, 17 Oct 2014 14:47:13 +0000</pubDate><guid>https://blakeniemyjski.com/tags/software-review/</guid><description/></item><item><title>Software Announcements</title><link>https://blakeniemyjski.com/tags/software-announcements/</link><pubDate>Tue, 18 Feb 2014 13:33:33 +0000</pubDate><guid>https://blakeniemyjski.com/tags/software-announcements/</guid><description/></item><item><title>Visual Studio Extensibility</title><link>https://blakeniemyjski.com/tags/visual-studio-extensibility/</link><pubDate>Thu, 02 Jun 2011 20:24:17 +0000</pubDate><guid>https://blakeniemyjski.com/tags/visual-studio-extensibility/</guid><description/></item><item><title>Code Generation</title><link>https://blakeniemyjski.com/tags/code-generation/</link><pubDate>Thu, 02 Jun 2011 18:57:36 +0000</pubDate><guid>https://blakeniemyjski.com/tags/code-generation/</guid><description/></item><item><title>Database</title><link>https://blakeniemyjski.com/tags/database/</link><pubDate>Wed, 12 Jan 2011 13:09:09 +0000</pubDate><guid>https://blakeniemyjski.com/tags/database/</guid><description/></item><item><title>Oracle</title><link>https://blakeniemyjski.com/tags/oracle/</link><pubDate>Wed, 12 Jan 2011 13:09:09 +0000</pubDate><guid>https://blakeniemyjski.com/tags/oracle/</guid><description/></item><item><title>Book Review</title><link>https://blakeniemyjski.com/tags/book-review/</link><pubDate>Tue, 28 Dec 2010 17:39:02 +0000</pubDate><guid>https://blakeniemyjski.com/tags/book-review/</guid><description/></item><item><title>CSLA</title><link>https://blakeniemyjski.com/tags/csla/</link><pubDate>Tue, 28 Dec 2010 17:39:02 +0000</pubDate><guid>https://blakeniemyjski.com/tags/csla/</guid><description/></item><item><title>.netTiers</title><link>https://blakeniemyjski.com/tags/.nettiers/</link><pubDate>Tue, 28 Dec 2010 17:38:57 +0000</pubDate><guid>https://blakeniemyjski.com/tags/.nettiers/</guid><description/></item><item><title>Microsoft .NET Framework</title><link>https://blakeniemyjski.com/tags/microsoft-.net-framework/</link><pubDate>Tue, 28 Dec 2010 17:38:55 +0000</pubDate><guid>https://blakeniemyjski.com/tags/microsoft-.net-framework/</guid><description/></item><item><title>Telligent</title><link>https://blakeniemyjski.com/tags/telligent/</link><pubDate>Tue, 28 Dec 2010 17:38:55 +0000</pubDate><guid>https://blakeniemyjski.com/tags/telligent/</guid><description/></item><item><title>RSS</title><link>https://blakeniemyjski.com/tags/rss/</link><pubDate>Mon, 17 Jul 2006 17:38:47 +0000</pubDate><guid>https://blakeniemyjski.com/tags/rss/</guid><description/></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Blake Niemyjski</title>
+    <link>https://blakeniemyjski.com/tags/</link>
+    <description>Recent content in Tags on Blake Niemyjski</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 17 Oct 2014 14:47:13 +0000</lastBuildDate>
+    
+	<atom:link href="https://blakeniemyjski.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Software Review</title>
+      <link>https://blakeniemyjski.com/tags/software-review/</link>
+      <pubDate>Fri, 17 Oct 2014 14:47:13 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/tags/software-review/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Software Announcements</title>
+      <link>https://blakeniemyjski.com/tags/software-announcements/</link>
+      <pubDate>Tue, 18 Feb 2014 13:33:33 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/tags/software-announcements/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Visual Studio Extensibility</title>
+      <link>https://blakeniemyjski.com/tags/visual-studio-extensibility/</link>
+      <pubDate>Thu, 02 Jun 2011 20:24:17 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/tags/visual-studio-extensibility/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Code Generation</title>
+      <link>https://blakeniemyjski.com/tags/code-generation/</link>
+      <pubDate>Thu, 02 Jun 2011 18:57:36 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/tags/code-generation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Database</title>
+      <link>https://blakeniemyjski.com/tags/database/</link>
+      <pubDate>Wed, 12 Jan 2011 13:09:09 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/tags/database/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Oracle</title>
+      <link>https://blakeniemyjski.com/tags/oracle/</link>
+      <pubDate>Wed, 12 Jan 2011 13:09:09 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/tags/oracle/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Book Review</title>
+      <link>https://blakeniemyjski.com/tags/book-review/</link>
+      <pubDate>Tue, 28 Dec 2010 17:39:02 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/tags/book-review/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CSLA</title>
+      <link>https://blakeniemyjski.com/tags/csla/</link>
+      <pubDate>Tue, 28 Dec 2010 17:39:02 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/tags/csla/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>.netTiers</title>
+      <link>https://blakeniemyjski.com/tags/.nettiers/</link>
+      <pubDate>Tue, 28 Dec 2010 17:38:57 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/tags/.nettiers/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Microsoft .NET Framework</title>
+      <link>https://blakeniemyjski.com/tags/microsoft-.net-framework/</link>
+      <pubDate>Tue, 28 Dec 2010 17:38:55 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/tags/microsoft-.net-framework/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Telligent</title>
+      <link>https://blakeniemyjski.com/tags/telligent/</link>
+      <pubDate>Tue, 28 Dec 2010 17:38:55 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/tags/telligent/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RSS</title>
+      <link>https://blakeniemyjski.com/tags/rss/</link>
+      <pubDate>Mon, 17 Jul 2006 17:38:47 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/tags/rss/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

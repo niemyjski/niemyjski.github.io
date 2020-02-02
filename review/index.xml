@@ -1,1 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Review on Blake Niemyjski</title><link>https://blakeniemyjski.com/review/</link><description>Recent content in Review on Blake Niemyjski</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 28 Dec 2010 17:39:02 +0000</lastBuildDate><atom:link href="https://blakeniemyjski.com/review/index.xml" rel="self" type="application/rss+xml"/><item><title>Beginning Silverlight 4 in C#</title><link>https://blakeniemyjski.com/review/beginning-silverlight-4-in-csharp/</link><pubDate>Tue, 28 Dec 2010 17:39:02 +0000</pubDate><guid>https://blakeniemyjski.com/review/beginning-silverlight-4-in-csharp/</guid><description>I have read many technical books over the years and this is one is one of those books that you know you better keep handy. I really like how Robert has this book laid out and how he introduces you to Silverlight. I&amp;rsquo;ve been a .NET guy since version 1.0. But like most developers, I haven&amp;rsquo;t had the chance to really dive into Microsoft&amp;rsquo;s latest technologies like Silverlight until they have a few versions released.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Review on Blake Niemyjski</title>
+    <link>https://blakeniemyjski.com/review/</link>
+    <description>Recent content in Review on Blake Niemyjski</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 28 Dec 2010 17:39:02 +0000</lastBuildDate>
+    
+	<atom:link href="https://blakeniemyjski.com/review/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Beginning Silverlight 4 in C#</title>
+      <link>https://blakeniemyjski.com/review/beginning-silverlight-4-in-csharp/</link>
+      <pubDate>Tue, 28 Dec 2010 17:39:02 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/review/beginning-silverlight-4-in-csharp/</guid>
+      <description>I have read many technical books over the years and this is one is one of those books that you know you better keep handy. I really like how Robert has this book laid out and how he introduces you to Silverlight. I&amp;rsquo;ve been a .NET guy since version 1.0. But like most developers, I haven&amp;rsquo;t had the chance to really dive into Microsoft&amp;rsquo;s latest technologies like Silverlight until they have a few versions released.</description>
+    </item>
+    
+  </channel>
+</rss>

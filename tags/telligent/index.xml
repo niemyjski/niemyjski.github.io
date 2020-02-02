@@ -1,4 +1,72 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Telligent on Blake Niemyjski</title><link>https://blakeniemyjski.com/tags/telligent/</link><description>Recent content in Telligent on Blake Niemyjski</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 28 Dec 2010 17:38:55 +0000</lastBuildDate><atom:link href="https://blakeniemyjski.com/tags/telligent/index.xml" rel="self" type="application/rss+xml"/><item><title>How-to: Delete dangling files from a Telligent Community database</title><link>https://blakeniemyjski.com/programming/how-to-delete-dangling-files-from-a-telligent-community-database/</link><pubDate>Tue, 28 Dec 2010 17:38:55 +0000</pubDate><guid>https://blakeniemyjski.com/programming/how-to-delete-dangling-files-from-a-telligent-community-database/</guid><description>The other day I came across a bug when upgrading my site to Community Server 2008. The Community Server 2008 upgrade tool would throw an exception when trying to move my files into CFS. The exception was result of the upgrade tool trying to pull down post attachments where the Section or Post didn&amp;rsquo;t exist.
-This might not seem like such a bad thing, but it is for two reasons:1. You have a file that is taking up database space that isn&amp;rsquo;t accessible within Community Server.</description></item><item><title>Community Server 2007 migration bug</title><link>https://blakeniemyjski.com/programming/community-server-2007-migration-bug/</link><pubDate>Tue, 28 Dec 2010 17:38:51 +0000</pubDate><guid>https://blakeniemyjski.com/programming/community-server-2007-migration-bug/</guid><description>Tonight we updated windowscoding.com to Community Server 2007. After a while of messing around I noticed that I couldn&amp;rsquo;t access and blog posts. Soon enough, after enough looking around we noticed that the query string had \themes\blogs obviously something was wrong. So I went and messaged my friend and twice time co-worker Rick Reszler if he had any clue as to the reason of my error. He quickly told me that this happens on some sites only after they are migrated from 2.</description></item><item><title>DasBlog to Telligent Community Server 2.0 blog converter</title><link>https://blakeniemyjski.com/programming/dasblog-to-telligent-community-server-2.0-blog-converter/</link><pubDate>Tue, 28 Dec 2010 17:38:47 +0000</pubDate><guid>https://blakeniemyjski.com/programming/dasblog-to-telligent-community-server-2.0-blog-converter/</guid><description>My friend Ryan Hoffman, who is currently interning at Telligent; has created a DasBlogto Community Server 2.1 blog converter. Hopefully like my Firefox to IE7 application will let others experience different applications in the same category of software; in this case blogging. I highly recommend anyone with DasBlog to test this out and let me and Ryan know what you think.</description></item><item><title>How-to: Upgrade a Community Server website thats running 2.1, 2007 or 2008 site to Community Server 2008 or Telligent Community 5.5</title><link>https://blakeniemyjski.com/programming/how-to-upgrade-a-community-server-website-thats-running-2.1-2007-or-2008-site-to-community-server-2008-or-telligent-community-5.5/</link><pubDate>Thu, 07 Oct 2010 17:39:01 +0000</pubDate><guid>https://blakeniemyjski.com/programming/how-to-upgrade-a-community-server-website-thats-running-2.1-2007-or-2008-site-to-community-server-2008-or-telligent-community-5.5/</guid><description>I have done a few of these upgrades for a few big sites like Bink.nu and Sober.com. Here is the safest way without a ton of headaches. Please contact me if you need help, I&amp;rsquo;m willing to do the upgrade for people as well&amp;hellip; Please do SQL backups after every step!
-Database Instructions Upgrade from Community Server 2.1 to 2007.0 Create a SQL backup. Run SQL Compareagainst a fresh database of cs2007 to the upgraded database and make sure everything transferred correctly.</description></item><item><title>How-to: Protect your Telligent Community website from spammers</title><link>https://blakeniemyjski.com/programming/how-to-protect-your-telligent-community-website-from-spammers/</link><pubDate>Thu, 14 May 2009 17:38:59 +0000</pubDate><guid>https://blakeniemyjski.com/programming/how-to-protect-your-telligent-community-website-from-spammers/</guid><description>One should always be aware that your site could be attacked by spam bots if you don&amp;rsquo;t take the proper precautions. The easiest and quickest way to help prevent 500+ spam users from joining your site is to configure the default options to make it harder for spam bots to create accounts. Please note that this can also reduce the number of registrations on your site due to the extra steps it takes to register.</description></item><item><title>How-to: protect your Telligent Community website from rouge spiders with a robots text file</title><link>https://blakeniemyjski.com/programming/how-to-protect-your-telligent-community-website-from-rouge-spiders-with-a-robots-text-file/</link><pubDate>Sun, 03 May 2009 17:38:58 +0000</pubDate><guid>https://blakeniemyjski.com/programming/how-to-protect-your-telligent-community-website-from-rouge-spiders-with-a-robots-text-file/</guid><description>Over the course of the past two years, I have worked on a number of Community Server sites. The goal of these tips are to share useful information about Telligent&amp;rsquo;s Community platform. There are a few ways you can protect yourself from rouge search bots from stealing your content and bringing down your site.
-The easiest way is to setup a robots text file, which will tell search engines to ignore certain files or directories.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Telligent on Blake Niemyjski</title>
+    <link>https://blakeniemyjski.com/tags/telligent/</link>
+    <description>Recent content in Telligent on Blake Niemyjski</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 28 Dec 2010 17:38:55 +0000</lastBuildDate>
+    
+	<atom:link href="https://blakeniemyjski.com/tags/telligent/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How-to: Delete dangling files from a Telligent Community database</title>
+      <link>https://blakeniemyjski.com/programming/how-to-delete-dangling-files-from-a-telligent-community-database/</link>
+      <pubDate>Tue, 28 Dec 2010 17:38:55 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/how-to-delete-dangling-files-from-a-telligent-community-database/</guid>
+      <description>The other day I came across a bug when upgrading my site to Community Server 2008. The Community Server 2008 upgrade tool would throw an exception when trying to move my files into CFS. The exception was result of the upgrade tool trying to pull down post attachments where the Section or Post didn&amp;rsquo;t exist.
+This might not seem like such a bad thing, but it is for two reasons:1. You have a file that is taking up database space that isn&amp;rsquo;t accessible within Community Server.</description>
+    </item>
+    
+    <item>
+      <title>Community Server 2007 migration bug</title>
+      <link>https://blakeniemyjski.com/programming/community-server-2007-migration-bug/</link>
+      <pubDate>Tue, 28 Dec 2010 17:38:51 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/community-server-2007-migration-bug/</guid>
+      <description>Tonight we updated windowscoding.com to Community Server 2007. After a while of messing around I noticed that I couldn&amp;rsquo;t access and blog posts. Soon enough, after enough looking around we noticed that the query string had \themes\blogs obviously something was wrong. So I went and messaged my friend and twice time co-worker Rick Reszler if he had any clue as to the reason of my error. He quickly told me that this happens on some sites only after they are migrated from 2.</description>
+    </item>
+    
+    <item>
+      <title>DasBlog to Telligent Community Server 2.0 blog converter</title>
+      <link>https://blakeniemyjski.com/programming/dasblog-to-telligent-community-server-2.0-blog-converter/</link>
+      <pubDate>Tue, 28 Dec 2010 17:38:47 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/dasblog-to-telligent-community-server-2.0-blog-converter/</guid>
+      <description>My friend Ryan Hoffman, who is currently interning at Telligent; has created a DasBlogto Community Server 2.1 blog converter. Hopefully like my Firefox to IE7 application will let others experience different applications in the same category of software; in this case blogging. I highly recommend anyone with DasBlog to test this out and let me and Ryan know what you think.</description>
+    </item>
+    
+    <item>
+      <title>How-to: Upgrade a Community Server website thats running  2.1, 2007 or 2008 site to Community Server 2008 or Telligent Community 5.5</title>
+      <link>https://blakeniemyjski.com/programming/how-to-upgrade-a-community-server-website-thats-running-2.1-2007-or-2008-site-to-community-server-2008-or-telligent-community-5.5/</link>
+      <pubDate>Thu, 07 Oct 2010 17:39:01 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/how-to-upgrade-a-community-server-website-thats-running-2.1-2007-or-2008-site-to-community-server-2008-or-telligent-community-5.5/</guid>
+      <description>I have done a few of these upgrades for a few big sites like Bink.nu and Sober.com. Here is the safest way without a ton of headaches. Please contact me if you need help, I&amp;rsquo;m willing to do the upgrade for people as well&amp;hellip; Please do SQL backups after every step!
+Database Instructions  Upgrade from Community Server 2.1 to 2007.0 Create a SQL backup. Run SQL Compareagainst a fresh database of cs2007 to the upgraded database and make sure everything transferred correctly.</description>
+    </item>
+    
+    <item>
+      <title>How-to: Protect your Telligent Community website from spammers</title>
+      <link>https://blakeniemyjski.com/programming/how-to-protect-your-telligent-community-website-from-spammers/</link>
+      <pubDate>Thu, 14 May 2009 17:38:59 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/how-to-protect-your-telligent-community-website-from-spammers/</guid>
+      <description>One should always be aware that your site could be attacked by spam bots if you don&amp;rsquo;t take the proper precautions. The easiest and quickest way to help prevent 500+ spam users from joining your site is to configure the default options to make it harder for spam bots to create accounts. Please note that this can also reduce the number of registrations on your site due to the extra steps it takes to register.</description>
+    </item>
+    
+    <item>
+      <title>How-to: protect your Telligent Community website from rouge spiders with a robots text file</title>
+      <link>https://blakeniemyjski.com/programming/how-to-protect-your-telligent-community-website-from-rouge-spiders-with-a-robots-text-file/</link>
+      <pubDate>Sun, 03 May 2009 17:38:58 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/how-to-protect-your-telligent-community-website-from-rouge-spiders-with-a-robots-text-file/</guid>
+      <description>Over the course of the past two years, I have worked on a number of Community Server sites. The goal of these tips are to share useful information about Telligent&amp;rsquo;s Community platform. There are a few ways you can protect yourself from rouge search bots from stealing your content and bringing down your site.
+The easiest way is to setup a robots text file, which will tell search engines to ignore certain files or directories.</description>
+    </item>
+    
+  </channel>
+</rss>

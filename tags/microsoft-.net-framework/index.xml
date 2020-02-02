@@ -1,13 +1,153 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Microsoft .NET Framework on Blake Niemyjski</title><link>https://blakeniemyjski.com/tags/microsoft-.net-framework/</link><description>Recent content in Microsoft .NET Framework on Blake Niemyjski</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 28 Dec 2010 17:38:55 +0000</lastBuildDate><atom:link href="https://blakeniemyjski.com/tags/microsoft-.net-framework/index.xml" rel="self" type="application/rss+xml"/><item><title>Got .NET Posters?</title><link>https://blakeniemyjski.com/programming/got-.net-posters/</link><pubDate>Tue, 28 Dec 2010 17:38:55 +0000</pubDate><guid>https://blakeniemyjski.com/programming/got-.net-posters/</guid><description>Chris Bowen&amp;rsquo;s did a search last month for all posters available on Microsoft Downloads. This is what he found:
-.NET 3.5 Namespaces Poster The .NET Framework 3.5 Common Namespaces and Types Poster
-Visual Basic 2008 Keybinding Poster Printable wall poster containing list of useful keyboard shortcuts for Visual Basic 2008 developers
-Visual C++ 2008 Keybinding Poster List of keybindings for Visual C++ language within Visual Studio and Visual C++ Express 2008</description></item><item><title>Video: Microsoft's 2008 Lang.NET Symposium</title><link>https://blakeniemyjski.com/programming/video-microsofts-2008-lang.net-symposium/</link><pubDate>Tue, 28 Dec 2010 17:38:55 +0000</pubDate><guid>https://blakeniemyjski.com/programming/video-microsofts-2008-lang.net-symposium/</guid><description>Check out the screen casts / videos of the Microsoft 2008 Lang.NET Symposium event. They have some pretty interesting videos available for everyone, granted you have Silverlight installed. View ( 2008 Lang.NET Symposium Videos )</description></item><item><title>.NET Framework Library Source Code now available</title><link>https://blakeniemyjski.com/programming/net-framework-library-source-code-now-available/</link><pubDate>Tue, 28 Dec 2010 17:38:54 +0000</pubDate><guid>https://blakeniemyjski.com/programming/net-framework-library-source-code-now-available/</guid><description>I&amp;rsquo;ve been waiting for this day for a very long time. Starting today you can view or debug the source code to the following .NET Framework libraries:* .NET Base Class Libraries (including System, System.CodeDom, System.Collections, System.ComponentModel, System.Diagnostics, System.Drawing, System.Globalization, System.IO, System.Net, System.Reflection, System.Runtime, System.Security, System.Text, System.Threading, etc).
-ASP.NET (System.Web, System.Web.Extensions) Windows Forms (System.Windows.Forms) Windows Presentation Foundation (System.Windows) ADO.NET and XML (System.Data and System.Xml)Shawn burke has a great blog post on how to configure your Visual Studio 2008 install to allow you to view the source code.</description></item><item><title>Object Initializers in C# 3.0</title><link>https://blakeniemyjski.com/programming/object-initializers-in-csharp-3.0/</link><pubDate>Tue, 28 Dec 2010 17:38:53 +0000</pubDate><guid>https://blakeniemyjski.com/programming/object-initializers-in-csharp-3.0/</guid><description>The other day I was doing my usual reading and came across some really cool information on Dan Wahlin&amp;rsquo;s blog about what we can expect in C# 3.0. Even though I disagree with some of the specs of C# 3.0, there are some really cool features worth noting in C# 3.0 like object initializers.
-&amp;ldquo;C# 3.0 is just around the corner so I thought I&amp;rsquo;d start writing about a few of the features that it exposes and provide quick and concise examples of how they can be used.</description></item><item><title>The top five reasons why I'm going to love Visual Studio 2008</title><link>https://blakeniemyjski.com/programming/the-top-five-reasons-why-im-going-to-love-visual-studio-2008/</link><pubDate>Tue, 28 Dec 2010 17:38:53 +0000</pubDate><guid>https://blakeniemyjski.com/programming/the-top-five-reasons-why-im-going-to-love-visual-studio-2008/</guid><description>I&amp;rsquo;ve have been waiting along time for Visual Studio 2008, because it adds functionality that should have been included a long time ago. I have pondered a while on what makes Visual Studio 2008 so special and what it would take me to upgrade. I came up with five good reasons I think I should upgrade to Visual Studio 2008.
-Nested Master Pages After working with the Community Server SDK, I&amp;rsquo;ve found out that Visual Studio 2005 comes up short.</description></item><item><title>Video: Visual Studio 2008 Training</title><link>https://blakeniemyjski.com/programming/video-visual-studio-2008-training/</link><pubDate>Tue, 28 Dec 2010 17:38:52 +0000</pubDate><guid>https://blakeniemyjski.com/programming/video-visual-studio-2008-training/</guid><description>Do you want to learn about the new features of Visual Studio 2008, and various related technologies? I&amp;rsquo;m guessing that you probably don&amp;rsquo;t even know where to start? Well look no further, because Microsoft recently published some videos to get everyone up to speed. The best part is all of the videos are free! View ( Visual Studio 2008 Training Videos )</description></item><item><title>Want to learn Microsoft .Net? Look no further!</title><link>https://blakeniemyjski.com/programming/want-to-learn-microsoft-.net-look-no-further/</link><pubDate>Tue, 28 Dec 2010 17:38:52 +0000</pubDate><guid>https://blakeniemyjski.com/programming/want-to-learn-microsoft-.net-look-no-further/</guid><description>If you&amp;rsquo;re in the mood to learn something new then you have came to the right place. I have been meaning to write this post for quite some time! Lately I have come across a few people who asked me &amp;ldquo;How can I learn about C# and ASP.NET?&amp;rdquo; I have told them all the same response, my response is to check out a few free websites that contain some great lessons that Microsoft has provided the community.</description></item><item><title>Important Daylight Savings Time Update for Microsoft .NET Framework Developers</title><link>https://blakeniemyjski.com/programming/important-daylight-savings-time-update-for-microsoft-.net-framework-developers/</link><pubDate>Tue, 28 Dec 2010 17:38:51 +0000</pubDate><guid>https://blakeniemyjski.com/programming/important-daylight-savings-time-update-for-microsoft-.net-framework-developers/</guid><description>A while back I received an email from Microsoft regarding a Daylight Saving Time (DST) update, which will take place via Windows Updates sometime soon. I highly recommend that everyone takes the time reads the below message even if this does not affect you, because it may help someone you know.
-&amp;ldquo;Dear Valued Microsoft Customer,
-In 2005, the United States government passed the Energy Policy Act of 2005. This act changes the start and end dates for Daylight Saving Time (DST) as of spring 2007.</description></item><item><title>How-to: Build a custom UITypeEditor</title><link>https://blakeniemyjski.com/programming/how-to-build-a-custom-uitypeeditor/</link><pubDate>Sat, 03 Oct 2009 17:39:00 +0000</pubDate><guid>https://blakeniemyjski.com/programming/how-to-build-a-custom-uitypeeditor/</guid><description>Recently, I built a CodeSmith Generator sample UITypeEditor that allows a user to enter in custom data into a DropDownList. In the following article I&amp;rsquo;ll show you what you need to do in order to build your own UITypeEditor. First you need to create a public class that will hold the data of the drop down list. In this example I named my class DropDownListProperty.
-public class DropDownListProperty { } Next we will need to add the properties and the constructors.</description></item><item><title>A fix for the Microsoft .Net Framework 3.5 SP1 Fatal Execution Error (VS Silent Death Bug).</title><link>https://blakeniemyjski.com/programming/a-fix-for-the-microsoft-.net-framework-3.5-sp1-fatal-execution-error-vs-silent-death-bug/</link><pubDate>Wed, 20 May 2009 17:38:59 +0000</pubDate><guid>https://blakeniemyjski.com/programming/a-fix-for-the-microsoft-.net-framework-3.5-sp1-fatal-execution-error-vs-silent-death-bug/</guid><description>We released CodeSmith Generator5.1 with the new requirements of the Microsoft .Net Framework 3.5. One of our experiences in upgrading to the .Net Framework 3.5 is issues we have run into like our customers reporting Visual Studio disappearing or closing extremely quick when they try to generate code using CodeSmith&amp;rsquo;s Visual Studio Integration. The following link Tools - Part 11 - Add-ins - Attempting to work around the &amp;ldquo;VS Silent Death&amp;rdquo; bug describes this issue in detail.</description></item><item><title>How-to: Register a keyboard shortcut (hot key) in a .NET Windows Forms Application.</title><link>https://blakeniemyjski.com/programming/how-to-register-a-keyboard-shortcut-hot-key-in-a-.net-windows-forms-application/</link><pubDate>Tue, 19 May 2009 17:39:02 +0000</pubDate><guid>https://blakeniemyjski.com/programming/how-to-register-a-keyboard-shortcut-hot-key-in-a-.net-windows-forms-application/</guid><description>There may come a time when you want to implement some extra features or maybe an Easter egg into your application using keyboard shortcuts. I was recently tasked with creating an Easter egg so we could test some functionality in CodeSmith. After countless searches looking for an elegant solution (I found a few ugly solutions and some nicer ones) I came across Method #3. I&amp;rsquo;ll First touch on the one I didn&amp;rsquo;t choose to go with.</description></item><item><title>Visual Studio 2008 Virtual Labs</title><link>https://blakeniemyjski.com/programming/visual-studio-2008-virtual-labs/</link><pubDate>Thu, 06 Dec 2007 17:38:53 +0000</pubDate><guid>https://blakeniemyjski.com/programming/visual-studio-2008-virtual-labs/</guid><description>Two more of the hands-on labs from the Visual Studio 2008 Training Kit have been published as MSDN virtual labs. This allows you to can get started with VS 2008 in a minute and start exploring the new features. The two new labs focus on the language enhancements with C# 3.0 and Visual Basic 9. Here is a summary of the MSDN virtual labs that are now available:
-What&amp;rsquo;s new in C# 3.</description></item><item><title>Microsoft Visual Studio 2005 Keyboard Shortcut Reference Posters</title><link>https://blakeniemyjski.com/programming/microsoft-visual-studio-2005-keyboard-shortcut-reference-posters/</link><pubDate>Thu, 08 Feb 2007 17:38:50 +0000</pubDate><guid>https://blakeniemyjski.com/programming/microsoft-visual-studio-2005-keyboard-shortcut-reference-posters/</guid><description>I found these posters after exploring an interesting MSDN blog of a K-12 Computer Science Academic Relations Manager. The posters are nice and well worth spending the couple of seconds to download them.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Microsoft .NET Framework on Blake Niemyjski</title>
+    <link>https://blakeniemyjski.com/tags/microsoft-.net-framework/</link>
+    <description>Recent content in Microsoft .NET Framework on Blake Niemyjski</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 28 Dec 2010 17:38:55 +0000</lastBuildDate>
+    
+	<atom:link href="https://blakeniemyjski.com/tags/microsoft-.net-framework/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Got .NET Posters?</title>
+      <link>https://blakeniemyjski.com/programming/got-.net-posters/</link>
+      <pubDate>Tue, 28 Dec 2010 17:38:55 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/got-.net-posters/</guid>
+      <description>Chris Bowen&amp;rsquo;s did a search last month for all posters available on Microsoft Downloads. This is what he found:
+ .NET 3.5 Namespaces Poster  The .NET Framework 3.5 Common Namespaces and Types Poster
+ Visual Basic 2008 Keybinding Poster  Printable wall poster containing list of useful keyboard shortcuts for Visual Basic 2008 developers
+ Visual C++ 2008 Keybinding Poster  List of keybindings for Visual C++ language within Visual Studio and Visual C++ Express 2008</description>
+    </item>
+    
+    <item>
+      <title>Video: Microsoft&#39;s 2008 Lang.NET Symposium</title>
+      <link>https://blakeniemyjski.com/programming/video-microsofts-2008-lang.net-symposium/</link>
+      <pubDate>Tue, 28 Dec 2010 17:38:55 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/video-microsofts-2008-lang.net-symposium/</guid>
+      <description>Check out the screen casts / videos of the Microsoft 2008 Lang.NET Symposium event. They have some pretty interesting videos available for everyone, granted you have Silverlight installed. View ( 2008 Lang.NET Symposium Videos )</description>
+    </item>
+    
+    <item>
+      <title>.NET Framework Library Source Code now available</title>
+      <link>https://blakeniemyjski.com/programming/net-framework-library-source-code-now-available/</link>
+      <pubDate>Tue, 28 Dec 2010 17:38:54 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/net-framework-library-source-code-now-available/</guid>
+      <description>I&amp;rsquo;ve been waiting for this day for a very long time. Starting today you can view or debug the source code to the following .NET Framework libraries:* .NET Base Class Libraries (including System, System.CodeDom, System.Collections, System.ComponentModel, System.Diagnostics, System.Drawing, System.Globalization, System.IO, System.Net, System.Reflection, System.Runtime, System.Security, System.Text, System.Threading, etc).
+ ASP.NET (System.Web, System.Web.Extensions) Windows Forms (System.Windows.Forms) Windows Presentation Foundation (System.Windows) ADO.NET and XML (System.Data and System.Xml)Shawn burke has a great blog post on how to configure your Visual Studio 2008 install to allow you to view the source code.</description>
+    </item>
+    
+    <item>
+      <title>Object Initializers in C# 3.0</title>
+      <link>https://blakeniemyjski.com/programming/object-initializers-in-csharp-3.0/</link>
+      <pubDate>Tue, 28 Dec 2010 17:38:53 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/object-initializers-in-csharp-3.0/</guid>
+      <description>The other day I was doing my usual reading and came across some really cool information on Dan Wahlin&amp;rsquo;s blog about what we can expect in C# 3.0. Even though I disagree with some of the specs of C# 3.0, there are some really cool features worth noting in C# 3.0 like object initializers.
+ &amp;ldquo;C# 3.0 is just around the corner so I thought I&amp;rsquo;d start writing about a few of the features that it exposes and provide quick and concise examples of how they can be used.</description>
+    </item>
+    
+    <item>
+      <title>The top five reasons why I&#39;m going to love Visual Studio 2008</title>
+      <link>https://blakeniemyjski.com/programming/the-top-five-reasons-why-im-going-to-love-visual-studio-2008/</link>
+      <pubDate>Tue, 28 Dec 2010 17:38:53 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/the-top-five-reasons-why-im-going-to-love-visual-studio-2008/</guid>
+      <description>I&amp;rsquo;ve have been waiting along time for Visual Studio 2008, because it adds functionality that should have been included a long time ago. I have pondered a while on what makes Visual Studio 2008 so special and what it would take me to upgrade. I came up with five good reasons I think I should upgrade to Visual Studio 2008.
+  Nested Master Pages    After working with the Community Server SDK, I&amp;rsquo;ve found out that Visual Studio 2005 comes up short.</description>
+    </item>
+    
+    <item>
+      <title>Video: Visual Studio 2008 Training</title>
+      <link>https://blakeniemyjski.com/programming/video-visual-studio-2008-training/</link>
+      <pubDate>Tue, 28 Dec 2010 17:38:52 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/video-visual-studio-2008-training/</guid>
+      <description>Do you want to learn about the new features of Visual Studio 2008, and various related technologies? I&amp;rsquo;m guessing that you probably don&amp;rsquo;t even know where to start? Well look no further, because Microsoft recently published some videos to get everyone up to speed. The best part is all of the videos are free! View ( Visual Studio 2008 Training Videos )</description>
+    </item>
+    
+    <item>
+      <title>Want to learn Microsoft .Net? Look no further!</title>
+      <link>https://blakeniemyjski.com/programming/want-to-learn-microsoft-.net-look-no-further/</link>
+      <pubDate>Tue, 28 Dec 2010 17:38:52 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/want-to-learn-microsoft-.net-look-no-further/</guid>
+      <description>If you&amp;rsquo;re in the mood to learn something new then you have came to the right place. I have been meaning to write this post for quite some time! Lately I have come across a few people who asked me &amp;ldquo;How can I learn about C# and ASP.NET?&amp;rdquo; I have told them all the same response, my response is to check out a few free websites that contain some great lessons that Microsoft has provided the community.</description>
+    </item>
+    
+    <item>
+      <title>Important Daylight Savings Time Update for Microsoft .NET Framework Developers</title>
+      <link>https://blakeniemyjski.com/programming/important-daylight-savings-time-update-for-microsoft-.net-framework-developers/</link>
+      <pubDate>Tue, 28 Dec 2010 17:38:51 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/important-daylight-savings-time-update-for-microsoft-.net-framework-developers/</guid>
+      <description>A while back I received an email from Microsoft regarding a Daylight Saving Time (DST) update, which will take place via Windows Updates sometime soon. I highly recommend that everyone takes the time reads the below message even if this does not affect you, because it may help someone you know.
+  &amp;ldquo;Dear Valued Microsoft Customer,
+In 2005, the United States government passed the Energy Policy Act of 2005. This act changes the start and end dates for Daylight Saving Time (DST) as of spring 2007.</description>
+    </item>
+    
+    <item>
+      <title>How-to: Build a custom UITypeEditor</title>
+      <link>https://blakeniemyjski.com/programming/how-to-build-a-custom-uitypeeditor/</link>
+      <pubDate>Sat, 03 Oct 2009 17:39:00 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/how-to-build-a-custom-uitypeeditor/</guid>
+      <description>Recently, I built a CodeSmith Generator sample UITypeEditor that allows a user to enter in custom data into a DropDownList. In the following article I&amp;rsquo;ll show you what you need to do in order to build your own UITypeEditor. First you need to create a public class that will hold the data of the drop down list. In this example I named my class DropDownListProperty.
+public class DropDownListProperty { } Next we will need to add the properties and the constructors.</description>
+    </item>
+    
+    <item>
+      <title>A fix for the Microsoft .Net Framework 3.5 SP1 Fatal Execution Error (VS Silent Death Bug).</title>
+      <link>https://blakeniemyjski.com/programming/a-fix-for-the-microsoft-.net-framework-3.5-sp1-fatal-execution-error-vs-silent-death-bug/</link>
+      <pubDate>Wed, 20 May 2009 17:38:59 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/a-fix-for-the-microsoft-.net-framework-3.5-sp1-fatal-execution-error-vs-silent-death-bug/</guid>
+      <description>We released CodeSmith Generator5.1 with the new requirements of the Microsoft .Net Framework 3.5. One of our experiences in upgrading to the .Net Framework 3.5 is issues we have run into like our customers reporting Visual Studio disappearing or closing extremely quick when they try to generate code using CodeSmith&amp;rsquo;s Visual Studio Integration. The following link Tools - Part 11 - Add-ins - Attempting to work around the &amp;ldquo;VS Silent Death&amp;rdquo; bug describes this issue in detail.</description>
+    </item>
+    
+    <item>
+      <title>How-to: Register a keyboard shortcut (hot key) in a .NET Windows Forms Application.</title>
+      <link>https://blakeniemyjski.com/programming/how-to-register-a-keyboard-shortcut-hot-key-in-a-.net-windows-forms-application/</link>
+      <pubDate>Tue, 19 May 2009 17:39:02 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/how-to-register-a-keyboard-shortcut-hot-key-in-a-.net-windows-forms-application/</guid>
+      <description>There may come a time when you want to implement some extra features or maybe an Easter egg into your application using keyboard shortcuts. I was recently tasked with creating an Easter egg so we could test some functionality in CodeSmith. After countless searches looking for an elegant solution (I found a few ugly solutions and some nicer ones) I came across Method #3. I&amp;rsquo;ll First touch on the one I didn&amp;rsquo;t choose to go with.</description>
+    </item>
+    
+    <item>
+      <title>Visual Studio 2008 Virtual Labs</title>
+      <link>https://blakeniemyjski.com/programming/visual-studio-2008-virtual-labs/</link>
+      <pubDate>Thu, 06 Dec 2007 17:38:53 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/visual-studio-2008-virtual-labs/</guid>
+      <description>Two more of the hands-on labs from the Visual Studio 2008 Training Kit have been published as MSDN virtual labs. This allows you to can get started with VS 2008 in a minute and start exploring the new features. The two new labs focus on the language enhancements with C# 3.0 and Visual Basic 9. Here is a summary of the MSDN virtual labs that are now available:
+ What&amp;rsquo;s new in C# 3.</description>
+    </item>
+    
+    <item>
+      <title>Microsoft Visual Studio 2005 Keyboard Shortcut Reference Posters</title>
+      <link>https://blakeniemyjski.com/programming/microsoft-visual-studio-2005-keyboard-shortcut-reference-posters/</link>
+      <pubDate>Thu, 08 Feb 2007 17:38:50 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/microsoft-visual-studio-2005-keyboard-shortcut-reference-posters/</guid>
+      <description>I found these posters after exploring an interesting MSDN blog of a K-12 Computer Science Academic Relations Manager. The posters are nice and well worth spending the couple of seconds to download them.
 Here are the download links for each language(s) shortcut reference poster:
-Visual Basic 2005 Visual C# Visual C++ Source Visual Studio Keyboard Shortcut Posters</description></item><item><title>Working with the Microsoft Windows RSS Platform (C#)</title><link>https://blakeniemyjski.com/programming/working-with-the-microsoft-windows-rss-platform-csharp/</link><pubDate>Mon, 17 Jul 2006 17:38:47 +0000</pubDate><guid>https://blakeniemyjski.com/programming/working-with-the-microsoft-windows-rss-platform-csharp/</guid><description>If you don&amp;rsquo;t know what RSS is, then you have been hiding under a pretty big rock lately. A lot of Microsoft&amp;rsquo;s products are currently out or are coming out in the next year use the Windows RSS platform. To name a few of these products off the top of my head are as follows: IE7, Office 2007, Windows Live Mail Desktop, and Windows Vista. I&amp;rsquo;m pretty sure that sometime in the next couple of years you will more than likely be working with RSS in one or more of your applications.</description></item></channel></rss>
+ Visual Basic 2005 Visual C# Visual C++  Source Visual Studio Keyboard Shortcut Posters </description>
+    </item>
+    
+    <item>
+      <title>Working with the Microsoft Windows RSS Platform (C#)</title>
+      <link>https://blakeniemyjski.com/programming/working-with-the-microsoft-windows-rss-platform-csharp/</link>
+      <pubDate>Mon, 17 Jul 2006 17:38:47 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/working-with-the-microsoft-windows-rss-platform-csharp/</guid>
+      <description>If you don&amp;rsquo;t know what RSS is, then you have been hiding under a pretty big rock lately. A lot of Microsoft&amp;rsquo;s products are currently out or are coming out in the next year use the Windows RSS platform. To name a few of these products off the top of my head are as follows: IE7, Office 2007, Windows Live Mail Desktop, and Windows Vista. I&amp;rsquo;m pretty sure that sometime in the next couple of years you will more than likely be working with RSS in one or more of your applications.</description>
+    </item>
+    
+  </channel>
+</rss>
