@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Oracle on Blake Niemyjski</title>
+    <link>https://blakeniemyjski.com/tags/oracle/</link>
+    <description>Recent content in Oracle on Blake Niemyjski</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 12 Jan 2011 13:09:09 +0000</lastBuildDate>
+    
+	<atom:link href="https://blakeniemyjski.com/tags/oracle/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How-to: Create a new Oracle User</title>
+      <link>https://blakeniemyjski.com/programming/how-to-create-a-new-oracle-user/</link>
+      <pubDate>Wed, 12 Jan 2011 13:09:09 +0000</pubDate>
+      
+      <guid>https://blakeniemyjski.com/programming/how-to-create-a-new-oracle-user/</guid>
+      <description>Every now and then I need to create a new Oracle user to test the CodeSmith Generator OracleSchemaProvider. I wanted to outline the steps that I use to create a new user as well as change the password of an existing user.
+The first step one needs to take is to create a new user but you may not remember your login information if it has been a while. At this point I always open up SQL Plus from the start menu and enter in the following user name when prompted.</description>
+    </item>
+    
+  </channel>
+</rss>

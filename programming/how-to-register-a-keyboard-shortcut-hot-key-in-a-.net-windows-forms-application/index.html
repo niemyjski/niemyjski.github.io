@@ -1,0 +1,1034 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <script type="application/ld+json">
+    {
+        "@context" : "http://schema.org",
+        "@type" : "BlogPosting",
+        "mainEntityOfPage": {
+             "@type": "WebPage",
+             "@id": "https:\/\/blakeniemyjski.com\/"
+        },
+        "articleSection" : "programming",
+        "name" : "How-to: Register a keyboard shortcut (hot key) in a .NET Windows Forms Application.",
+        "headline" : "How-to: Register a keyboard shortcut (hot key) in a .NET Windows Forms Application.",
+        "description" : "There may come a time when you want to implement some extra features or maybe an Easter egg into your application using keyboard shortcuts. I was recently tasked with creating an Easter egg so we could test some functionality in CodeSmith. After countless searches looking for an elegant solution (I found a few ugly solutions and some nicer ones) I came across Method #3. I\x26rsquo;ll First touch on the one I didn\x26rsquo;t choose to go with.",
+        "inLanguage" : "en",
+        "author" : "",
+        "creator" : "",
+        "publisher": "",
+        "accountablePerson" : "",
+        "copyrightHolder" : "",
+        "copyrightYear" : "2009",
+        "datePublished": "2009-05-19 17:39:02 \x2b0000 UTC",
+        "dateModified" : "2009-05-19 17:39:02 \x2b0000 UTC",
+        "url" : "https:\/\/blakeniemyjski.com\/programming\/how-to-register-a-keyboard-shortcut-hot-key-in-a-.net-windows-forms-application\/",
+        "wordCount" : "739",
+        "keywords" : [ "Microsoft .NET Framework","Blog" ]
+    }
+    </script>
+        
+            
+                <title>How-to: Register a keyboard shortcut (hot key) in a .NET Windows Forms Application.</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.63.2" />
+        
+
+
+        
+        
+            
+                <meta name="description" content="Blake Niemyjski">
+            
+        
+
+        <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="How-to: Register a keyboard shortcut (hot key) in a .NET Windows Forms Application."/>
+<meta name="twitter:description" content="There may come a time when you want to implement some extra features or maybe an Easter egg into your application using keyboard shortcuts. I was recently tasked with creating an Easter egg so we could test some functionality in CodeSmith. After countless searches looking for an elegant solution (I found a few ugly solutions and some nicer ones) I came across Method #3. I&rsquo;ll First touch on the one I didn&rsquo;t choose to go with."/>
+<meta name="twitter:site" content="@blaken"/>
+
+        <meta property="og:title" content="How-to: Register a keyboard shortcut (hot key) in a .NET Windows Forms Application." />
+<meta property="og:description" content="There may come a time when you want to implement some extra features or maybe an Easter egg into your application using keyboard shortcuts. I was recently tasked with creating an Easter egg so we could test some functionality in CodeSmith. After countless searches looking for an elegant solution (I found a few ugly solutions and some nicer ones) I came across Method #3. I&rsquo;ll First touch on the one I didn&rsquo;t choose to go with." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blakeniemyjski.com/programming/how-to-register-a-keyboard-shortcut-hot-key-in-a-.net-windows-forms-application/" />
+<meta property="article:published_time" content="2009-05-19T17:39:02+00:00" />
+<meta property="article:modified_time" content="2009-05-19T17:39:02+00:00" />
+
+        <meta property="og:image" content="https://blakeniemyjski.com//images/logo.png">
+        <meta property="og:image:type" content="image/png">
+        <meta property="og:image:width" content="512">
+        <meta property="og:image:height" content="512">
+        <meta itemprop="name" content="How-to: Register a keyboard shortcut (hot key) in a .NET Windows Forms Application.">
+<meta itemprop="description" content="There may come a time when you want to implement some extra features or maybe an Easter egg into your application using keyboard shortcuts. I was recently tasked with creating an Easter egg so we could test some functionality in CodeSmith. After countless searches looking for an elegant solution (I found a few ugly solutions and some nicer ones) I came across Method #3. I&rsquo;ll First touch on the one I didn&rsquo;t choose to go with.">
+<meta itemprop="datePublished" content="2009-05-19T17:39:02&#43;00:00" />
+<meta itemprop="dateModified" content="2009-05-19T17:39:02&#43;00:00" />
+<meta itemprop="wordCount" content="739">
+
+
+
+<meta itemprop="keywords" content="Microsoft .NET Framework," />
+        
+
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css">
+            <link rel="stylesheet" href="/css/main.css">
+            <link rel="stylesheet" href="/css/add-on.css">
+            <link rel="stylesheet" href="/css/academicons.min.css">
+        
+
+        
+            
+                
+            
+        
+
+
+  
+    
+
+
+      
+    </head>
+    <body>
+
+      
+      <div id="wrapper">
+
+    
+    
+<header id="header">
+    
+      <h1><a href="/">programming</a></h1>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="/">
+                            <i class="fa fa-home">&nbsp;</i>Home
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/categories/review/">
+                            <i class="fa fa-book">&nbsp;</i>Reviews
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/categories/public-speaking/">
+                            <i class="fa fa-commenting-o">&nbsp;</i>Public Speaking
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/categories/programming/">
+                            <i class="fa fa-code">&nbsp;</i>Programming
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/about/">
+                            <i class="fa fa-id-card-o">&nbsp;</i>About
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="as_sitesearch" value="https://blakeniemyjski.com/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="as_sitesearch" value="https://blakeniemyjski.com/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="/">
+                            <h3>
+                                <i class="fa fa-home">&nbsp;</i>Home
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories/review/">
+                            <h3>
+                                <i class="fa fa-book">&nbsp;</i>Reviews
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories/public-speaking/">
+                            <h3>
+                                <i class="fa fa-commenting-o">&nbsp;</i>Public Speaking
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories/programming/">
+                            <h3>
+                                <i class="fa fa-code">&nbsp;</i>Programming
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/about/">
+                            <h3>
+                                <i class="fa fa-id-card-o">&nbsp;</i>About
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section class="recent-posts">
+            <div class="mini-posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+
+                
+                    
+                
+
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="/public-speaking/speaking-at-bam/">Speaking at BAM</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2019-02-19'>
+                                    February 19, 2019</time>
+                            </header>
+                            
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="/public-speaking/speaking-at-central-wisconsin-it-conference/">Speaking at Central Wisconsin It Conference</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2018-10-04'>
+                                    October 4, 2018</time>
+                            </header>
+                            
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="/public-speaking/speaking-at-the-northeast-wisconsin-code-camp/">Speaking at Northeast Wisconsin Code Camp</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2018-03-22'>
+                                    March 22, 2018</time>
+                            </header>
+                            
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="/public-speaking/speaking-at-milwaukee-code-camp/">Speaking at Milwaukee Code Camp</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2017-11-11'>
+                                    November 11, 2017</time>
+                            </header>
+                            
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="/public-speaking/speaking-at-the-north-dallas-net-user-group/">Speaking at North Dallas .NET User Group</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2017-05-01'>
+                                    May 1, 2017</time>
+                            </header>
+                            
+
+                        </article>
+                
+
+                
+                    <a href=
+                        
+                            /categories/
+                        
+                        class="button">View more posts</a>
+                
+            </div>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+
+<li>
+  <a href="//twitter.com/share?url=https%3a%2f%2fblakeniemyjski.com%2fprogramming%2fhow-to-register-a-keyboard-shortcut-hot-key-in-a-.net-windows-forms-application%2f&amp;text=How-to%3a%20Register%20a%20keyboard%20shortcut%20%28hot%20key%29%20in%20a%20.NET%20Windows%20Forms%20Application.&amp;via=blaken" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+<li>
+  <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblakeniemyjski.com%2fprogramming%2fhow-to-register-a-keyboard-shortcut-hot-key-in-a-.net-windows-forms-application%2f" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+    </a>
+</li>
+
+
+
+
+<li>
+  <a href="//reddit.com/submit?url=https%3a%2f%2fblakeniemyjski.com%2fprogramming%2fhow-to-register-a-keyboard-shortcut-hot-key-in-a-.net-windows-forms-application%2f&amp;title=How-to%3a%20Register%20a%20keyboard%20shortcut%20%28hot%20key%29%20in%20a%20.NET%20Windows%20Forms%20Application." target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+  </a>
+</li>
+
+
+
+
+<li>
+  <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fblakeniemyjski.com%2fprogramming%2fhow-to-register-a-keyboard-shortcut-hot-key-in-a-.net-windows-forms-application%2f&amp;title=How-to%3a%20Register%20a%20keyboard%20shortcut%20%28hot%20key%29%20in%20a%20.NET%20Windows%20Forms%20Application." target="_blank" class="share-btn linkedin">
+      <i class="fa fa-linkedin"></i>
+      <p>LinkedIn</p>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+<li>
+  <a href="mailto:?subject=Check out this post by &amp;body=https%3a%2f%2fblakeniemyjski.com%2fprogramming%2fhow-to-register-a-keyboard-shortcut-hot-key-in-a-.net-windows-forms-application%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+  </a>
+</li>
+
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+  <header>
+    <div class="title">
+        
+            <h1><a href="/programming/how-to-register-a-keyboard-shortcut-hot-key-in-a-.net-windows-forms-application/">How-to: Register a keyboard shortcut (hot key) in a .NET Windows Forms Application.</a></h1>
+            
+        
+        
+    </div>
+    <div class="meta">
+        
+
+        <time class="published"
+            datetime='2009-05-19'>
+            May 19, 2009</time>
+        <span class="author"></span>
+        
+            <p>4 minute read</p>
+        
+        
+    </div>
+</header>
+
+
+  
+    <section id="social-share">
+      <ul class="icons">
+        
+
+
+
+<li>
+  <a href="//twitter.com/share?url=https%3a%2f%2fblakeniemyjski.com%2fprogramming%2fhow-to-register-a-keyboard-shortcut-hot-key-in-a-.net-windows-forms-application%2f&amp;text=How-to%3a%20Register%20a%20keyboard%20shortcut%20%28hot%20key%29%20in%20a%20.NET%20Windows%20Forms%20Application.&amp;via=blaken" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+<li>
+  <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblakeniemyjski.com%2fprogramming%2fhow-to-register-a-keyboard-shortcut-hot-key-in-a-.net-windows-forms-application%2f" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+    </a>
+</li>
+
+
+
+
+<li>
+  <a href="//reddit.com/submit?url=https%3a%2f%2fblakeniemyjski.com%2fprogramming%2fhow-to-register-a-keyboard-shortcut-hot-key-in-a-.net-windows-forms-application%2f&amp;title=How-to%3a%20Register%20a%20keyboard%20shortcut%20%28hot%20key%29%20in%20a%20.NET%20Windows%20Forms%20Application." target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+  </a>
+</li>
+
+
+
+
+<li>
+  <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fblakeniemyjski.com%2fprogramming%2fhow-to-register-a-keyboard-shortcut-hot-key-in-a-.net-windows-forms-application%2f&amp;title=How-to%3a%20Register%20a%20keyboard%20shortcut%20%28hot%20key%29%20in%20a%20.NET%20Windows%20Forms%20Application." target="_blank" class="share-btn linkedin">
+      <i class="fa fa-linkedin"></i>
+      <p>LinkedIn</p>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+<li>
+  <a href="mailto:?subject=Check out this post by &amp;body=https%3a%2f%2fblakeniemyjski.com%2fprogramming%2fhow-to-register-a-keyboard-shortcut-hot-key-in-a-.net-windows-forms-application%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+  </a>
+</li>
+
+
+      </ul>
+    </section>
+  
+
+  
+
+  <div id="content">
+    <p>There may come a time when you want to implement some extra features or maybe
+an Easter egg into your application using keyboard shortcuts. I was recently
+tasked with creating an Easter egg so we could test some functionality in CodeSmith.
+After countless searches looking for an elegant solution (I found a few ugly
+solutions and some nicer ones) I came across Method #3. I&rsquo;ll First touch on the
+one I didn&rsquo;t choose to go with.</p>
+<h2 id="method-1">Method #1</h2>
+<p>The following code block will make an unmanaged call to the user32.dll to register
+the hotkey. I would never go this approach, but if you were like me and couldn&rsquo;t
+find anything in the time frame allotted then you might end up implementing this.</p>
+<p>First you will need to update your using block.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">using</span> System.Runtime.InteropServices;
+</code></pre></div><p>Then add the following code to your form.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#75715e">/// &lt;summary&gt; The RegisterHotKey function defines a system-wide hot key &lt;/summary&gt;
+</span><span style="color:#75715e"></span><span style="color:#75715e">/// &lt;param name=&#34;hWnd&#34;&gt;Handle to the window that will receive WM_HOTKEY messages
+</span><span style="color:#75715e"></span><span style="color:#75715e">/// generated by the hot key.&lt;/param&gt;
+</span><span style="color:#75715e"></span><span style="color:#75715e">/// &lt;param name=&#34;id&#34;&gt;Specifies the identifier of the hot key.&lt;/param&gt;
+</span><span style="color:#75715e"></span><span style="color:#75715e">/// &lt;param name=&#34;fsModifiers&#34;&gt;Specifies keys that must be pressed in combination with the key
+</span><span style="color:#75715e"></span><span style="color:#75715e">/// specified by the &#39;virtualKey&#39; parameter in order to generate the WM_HOTKEY message.&lt;/param&gt;
+</span><span style="color:#75715e"></span><span style="color:#75715e">/// &lt;param name=&#34;virtualKey&#34;&gt;Specifies the virtual-key code of the hot key&lt;/param&gt;
+</span><span style="color:#75715e"></span><span style="color:#75715e">/// &lt;returns&gt;&lt;c&gt;true&lt;/c&gt; if the function succeeds, otherwise &lt;c&gt;false&lt;/c&gt;&lt;/returns&gt;
+</span><span style="color:#75715e"></span><span style="color:#75715e">/// &lt;seealso cref=&#34;http://msdn.microsoft.com/en-us/library/ms646309(VS.85).aspx&#34;/&gt;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">[DllImport(&#34;user32.dll&#34;)]</span>
+<span style="color:#a6e22e">[return: MarshalAs(UnmanagedType.Bool)]</span>
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">bool</span> RegisterHotKey(IntPtr hWnd, <span style="color:#66d9ef">int</span> id, <span style="color:#66d9ef">uint</span> fsModifiers, <span style="color:#66d9ef">uint</span> virtualKey);
+<span style="color:#a6e22e">
+</span><span style="color:#a6e22e">[DllImport(&#34;user32.dll&#34;)]</span>
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">bool</span> UnregisterHotKey(IntPtr hWnd, <span style="color:#66d9ef">int</span> id);
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> MOD_CONTROL = <span style="color:#ae81ff">0</span>x2;
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> MOD_SHIFT = <span style="color:#ae81ff">0</span>x4;
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> WM_HOTKEY = <span style="color:#ae81ff">0</span>x312;
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> keyId;
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> RegisterHotKey(Form f, Keys key)
+{
+   <span style="color:#66d9ef">int</span> modifiers = <span style="color:#ae81ff">0</span>;
+
+   <span style="color:#66d9ef">if</span> ((key &amp; Keys.Control) == Keys.Control)
+       modifiers = modifiers | MOD_CONTROL;
+
+   <span style="color:#66d9ef">if</span> ((key &amp; Keys.Shift) == Keys.Shift)
+       modifiers = modifiers | MOD_SHIFT;
+
+   Keys k = key &amp; ~Keys.Control &amp; ~Keys.Shift;
+
+   Func&lt;<span style="color:#66d9ef">bool</span>&gt; ff = () =&gt;
+                       {
+                           keyId = f.GetHashCode();
+                           RegisterHotKey(f.Handle, keyId, (<span style="color:#66d9ef">uint</span>) modifiers, (<span style="color:#66d9ef">uint</span>) k);
+
+                           <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+                       };
+
+   <span style="color:#66d9ef">if</span> (f.InvokeRequired)
+       f.Invoke(ff);
+   <span style="color:#66d9ef">else</span>
+       ff();
+}
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> UnregisterHotKey(Form f)
+{
+   <span style="color:#66d9ef">try</span>
+   {
+       Func&lt;<span style="color:#66d9ef">bool</span>&gt; ff = () =&gt;
+                           {
+                               UnregisterHotKey(f.Handle, keyId);
+
+                               <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+                           };
+
+       <span style="color:#66d9ef">if</span> (f.InvokeRequired)
+           f.Invoke(ff);
+       <span style="color:#66d9ef">else</span>
+           ff();
+   }
+   <span style="color:#66d9ef">catch</span> (Exception ex)
+   {
+       Debug.WriteLine(ex.ToString());
+   }
+}
+
+<span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">void</span> WndProc(<span style="color:#66d9ef">ref</span> Message m)
+{
+   <span style="color:#66d9ef">base</span>.WndProc(<span style="color:#66d9ef">ref</span> m);
+
+   <span style="color:#66d9ef">if</span> (m.Msg == WM_HOTKEY)
+       <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Exception(<span style="color:#e6db74">&#34;You found an Easter Egg.&#34;</span>);
+}
+</code></pre></div><p>Then in your Form Load event add the following code.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs">Keys k = Keys.F2 | Keys.Control;
+RegisterHotKey(<span style="color:#66d9ef">this</span>, k);
+</code></pre></div><p>I found this example <a href="http://www.pinvoke.net/default.aspx/user32/RegisterHotKey.html">here</a>,
+Please note that I did some refactoring to it.</p>
+<h2 id="method-2">Method #2</h2>
+<p>I also found this <a href="http://stackoverflow.com/questions/48935/c-using-wpf-and-net-35-how-can-i-register-a-global-hot-key-to-say-ctrlshiftlett">WPF solution</a>
+that I haven&rsquo;t tried but should work. This looks like the best approach for
+implementing this functionality in WPF as I have seen people use the first method.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">public</span> WindowMain()
+{
+   InitializeComponent();
+
+   <span style="color:#66d9ef">this</span>.InputBindings.Add(<span style="color:#66d9ef">new</span> InputBinding(MyAppCommands.SaveAll, <span style="color:#66d9ef">new</span> KeyGesture(Key.F2, ModifierKeys.Control)););
+
+   CommandBinding cb = <span style="color:#66d9ef">new</span> CommandBinding(MyAppCommands.SaveAll);
+   cb.Executed += SaveAllDocuments;
+
+   <span style="color:#66d9ef">this</span>.CommandBindings.Add(cb );
+}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> SaveAllDocuments(<span style="color:#66d9ef">object</span> obSender, ExecutedRoutedEventArgs e)
+{
+}
+</code></pre></div><h2 id="method-3">Method #3</h2>
+<p>The approach I went I thought was the best way as it is small and elegant piece
+of code. It is completely safe to implement as it doesn&rsquo;t have any hooks into
+native windows dlls. The initial idea came from
+<a href="http://www.codeguru.com/csharp/.net/net_general/keyboard/article.php/c4639">here</a>,
+to implement this code just place it anywhere in your Form.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">bool</span> ProcessCmdKey(<span style="color:#66d9ef">ref</span> Message message, Keys keys)
+{
+    <span style="color:#66d9ef">switch</span> (keys)
+    {
+        <span style="color:#66d9ef">case</span> Keys.F2 | Keys.Control:
+            <span style="color:#75715e">//Process action here.
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+    }
+
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+}
+</code></pre></div><h2 id="method-4">Method #4</h2>
+<p>A <a href="http://erikej.blogspot.com">friend</a> recently sent me <a href="http://www.syncfusion.com/FAQ/windowsforms/faq_c46c.aspx">this example</a>
+right before publishing this. I have never seen this approach but never the
+less it is an example of how to implement this functionality.</p>
+<h4 id="c">C#</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyMainForm</span> : System.Windows.Forms.Form, IMessageFilter
+{
+     <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> WM_KEYDOWN = <span style="color:#ae81ff">0</span>x100;
+     <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> WM_KEYUP = <span style="color:#ae81ff">0</span>x101;
+
+     <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">bool</span> PreFilterMessage(<span style="color:#66d9ef">ref</span> Message m)
+     {
+          Keys keyCode = (Keys)(<span style="color:#66d9ef">int</span>)m.WParam &amp; Keys.KeyCode;
+          <span style="color:#66d9ef">if</span>(m.Msg == WM_KEYDOWN &amp;&amp; keyCode == Keys.Escape)
+          {
+               Console.WriteLine(<span style="color:#e6db74">&#34;Ignoring Escape...&#34;</span>);
+               <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+          }
+          <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+     }
+
+     <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> MyMainForm_Load(<span style="color:#66d9ef">object</span> sender, System.EventArgs e)
+     {
+          Application.AddMessageFilter(<span style="color:#66d9ef">this</span>);
+     }
+}
+</code></pre></div><h4 id="vbnet">VB.NET</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vb" data-lang="vb"><span style="color:#66d9ef">Public</span> <span style="color:#66d9ef">Class</span> <span style="color:#a6e22e">MyMainForm</span>
+     <span style="color:#66d9ef">Inherits</span> System.Windows.Forms.Form
+     <span style="color:#66d9ef">Implements</span> IMessageFilter
+
+     <span style="color:#66d9ef">Private</span> WM_KEYDOWN <span style="color:#f92672">As</span> <span style="color:#66d9ef">Integer</span> <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>H100
+     <span style="color:#66d9ef">Private</span> WM_KEYUP <span style="color:#f92672">As</span> <span style="color:#66d9ef">Integer</span> <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>H101
+
+     <span style="color:#66d9ef">Public</span> <span style="color:#66d9ef">Function</span> <span style="color:#a6e22e">PreFilterMessage</span>(<span style="color:#66d9ef">ByRef</span> m <span style="color:#f92672">As</span> Message) <span style="color:#f92672">As</span> <span style="color:#66d9ef">Boolean</span>
+          <span style="color:#66d9ef">Dim</span> keyCode <span style="color:#f92672">As</span> Keys <span style="color:#f92672">=</span> <span style="color:#66d9ef">CType</span>(<span style="color:#66d9ef">CInt</span>(m.WParam), Keys) <span style="color:#f92672">And</span> Keys.KeyCode
+          <span style="color:#66d9ef">If</span> m.Msg <span style="color:#f92672">=</span> WM_KEYDOWN <span style="color:#f92672">And</span> keyCode <span style="color:#f92672">=</span> Keys.Escape <span style="color:#66d9ef">Then</span>
+               Console.WriteLine(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Ignoring Escape...</span><span style="color:#e6db74">&#34;</span>)
+               <span style="color:#66d9ef">Return</span> <span style="color:#66d9ef">True</span>
+          <span style="color:#66d9ef">End</span> <span style="color:#66d9ef">If</span>
+          <span style="color:#66d9ef">Return</span> <span style="color:#66d9ef">False</span>
+     <span style="color:#66d9ef">End</span> <span style="color:#66d9ef">Function</span> <span style="color:#75715e">&#39;PreFilterMessage
+</span><span style="color:#75715e"></span>
+     <span style="color:#66d9ef">Private</span> <span style="color:#66d9ef">Sub</span> <span style="color:#a6e22e">MyMainForm_Load</span>(sender <span style="color:#f92672">As</span> <span style="color:#66d9ef">Object</span>, e <span style="color:#f92672">As</span> System.EventArgs)
+          Application.AddMessageFilter(<span style="color:#66d9ef">Me</span>)
+     <span style="color:#66d9ef">End</span> <span style="color:#66d9ef">Sub</span> <span style="color:#75715e">&#39;MyMainForm_Load
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">End</span> <span style="color:#66d9ef">Class</span> <span style="color:#75715e">&#39;MyMainForm
+</span></code></pre></div><p>Please let me know if you find any issues in the sample code above.</p>
+
+  </div>
+
+  <footer>
+    <ul class="stats">
+  <li class="categories">
+    <ul>
+        
+            
+            
+                <i class="fa fa-folder"></i>
+                
+                
+                <li><a class="article-category-link" href="https://blakeniemyjski.com/categories/programming">Programming</a></li>
+                
+            
+        
+    </ul>
+  </li>
+  <li class="tags">
+    <ul>
+        
+            
+            
+                <i class="fa fa-tags"></i>
+                
+                
+                <li><a class="article-category-link" href="https://blakeniemyjski.com/tags/microsoft-.net-framework">Microsoft .NET Framework</a></li>
+                
+            
+        
+    </ul>
+  </li>
+</ul>
+
+  </footer>
+
+</article>
+
+    <article class="post">
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "shortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </article>
+
+
+<ul class="actions pagination">
+    
+        <li><a href="/programming/how-to-protect-your-telligent-community-website-from-spammers/"
+                class="button big previous">How-to: Protect your Telligent Community website from spammers</a></li>
+    
+
+    
+        <li><a href="/programming/a-fix-for-the-microsoft-.net-framework-3.5-sp1-fatal-execution-error-vs-silent-death-bug/"
+                class="button big next">A fix for the Microsoft .Net Framework 3.5 SP1 Fatal Execution Error (VS Silent Death Bug).</a></li>
+    
+</ul>
+
+
+    </div>
+    
+<section id="sidebar">
+
+  
+  <section id="intro">
+    
+    
+      
+        <a href='/'><img src="/img/logo.jpeg" class="intro-circle" width="250" alt="Blake Niemyjski" /></a>
+      
+    
+    
+      <header>
+        <h2>Blake Niemyjski</h2>
+        <p>Passionate about building software</p>
+      </header>
+    
+    
+      <ul class="icons">
+        
+          
+    <li><a href="https://blakeniemyjski.com/index.xml" type="application/rss+xml" target="_blank" title="RSS" class="fa fa-rss"></a></li>
+
+
+        
+        
+  <li><a href="//github.com/niemyjski" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+
+
+  <li><a href="//stackoverflow.com/users/199701" target="_blank" title="Stack Overflow" class="fa fa-stack-overflow"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <li><a href="//linkedin.com/in/niemyjski" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <li><a href="//reddit.com/user/bniemyjski" target="_blank" title="Reddit" class="fa fa-reddit"></a></li>
+
+
+
+
+
+  <li><a href="//youtube.com/bniemyjski" target="_blank" title="YouTube" class="fa fa-youtube"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <li><a href="//twitter.com/blaken" target="_blank" title="Twitter" class="fa fa-twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <li><a href="mailto:bniemyjski@gmail.com" title="Email" class="fa fa-envelope"></a></li>
+
+
+      </ul>
+    
+  </section>
+
+  
+  <section class="recent-posts">
+    <div class="mini-posts">
+      <header>
+        <h3>Recent Posts</h3>
+      </header>
+      <div class="posts-container">
+        
+
+        
+          
+        
+
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="/public-speaking/speaking-at-bam/">Speaking at BAM</a>
+              </h3>
+              
+              <time class="published" datetime='2019-02-19'>
+                February 19, 2019
+              </time>
+            </header>
+            
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="/public-speaking/speaking-at-central-wisconsin-it-conference/">Speaking at Central Wisconsin It Conference</a>
+              </h3>
+              
+              <time class="published" datetime='2018-10-04'>
+                October 4, 2018
+              </time>
+            </header>
+            
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="/public-speaking/speaking-at-the-northeast-wisconsin-code-camp/">Speaking at Northeast Wisconsin Code Camp</a>
+              </h3>
+              
+              <time class="published" datetime='2018-03-22'>
+                March 22, 2018
+              </time>
+            </header>
+            
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="/public-speaking/speaking-at-milwaukee-code-camp/">Speaking at Milwaukee Code Camp</a>
+              </h3>
+              
+              <time class="published" datetime='2017-11-11'>
+                November 11, 2017
+              </time>
+            </header>
+            
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="/public-speaking/speaking-at-the-north-dallas-net-user-group/">Speaking at North Dallas .NET User Group</a>
+              </h3>
+              
+              <time class="published" datetime='2017-05-01'>
+                May 1, 2017
+              </time>
+            </header>
+            
+
+          </article>
+        
+      </div>
+
+      
+        <a href=
+          
+            /categories/
+          
+        class="button">View more posts</a>
+      
+    </div>
+  </section>
+
+  
+  
+  
+
+  
+  
+    <section id="mini-bio">
+      <h3>About</h3>
+      <p>Blake Niemyjski is a full time open source software architect and private pilot. Since the late 90's, Blake's curiosity has been focused around developing software that helps the masses. As a hobbyist developer turned student and professional, Blake's passion is to further his knowledge and create technologies for the future.</p>
+      <a href="/about/" class="button">Learn More</a>
+    </section>
+  
+
+  
+  <section id="footer">
+    
+    <p class="copyright">
+      
+        &copy; 2019
+        
+          Blake Niemyjski
+        
+      .
+      Powered by <a href="//gohugo.io" target="_blank">Hugo</a>
+    </p>
+  </section>
+</section>
+
+    </div>
+    <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+    
+
+    
+      
+    
+
+    
+      
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+        
+        
+        
+        <script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+      
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
+      <script src="/js/util.js"></script>
+      <script src="/js/main.js"></script>
+      <script src="/js/backToTop.js"></script>
+    
+
+    
+      
+        
+      
+    
+
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+      <script src="/js/math-code.js"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+  </body>
+</html>
+
