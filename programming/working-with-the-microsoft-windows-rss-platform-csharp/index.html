@@ -43,7 +43,7 @@ IFeedFolder subFolder = rootFolder;
 }
 </code></pre></div></li><li><p>Let s add a feed by adding a few lines of code in the Form1_Load ></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs><span style=color:#75715e>//Please note if the url to the feed already exists anywhere in the feeds folder an exception will occur.
 </span><span style=color:#75715e></span><span style=color:#75715e>//Add a feed called &#34;windowscoding.com&#34; to the root feeds folder.
-</span><span style=color:#75715e></span><span style=color:#66d9ef>if</span> (AddIE7Feed(<span style=color:#e6db74>&#34;&#34;</span>, <span style=color:#e6db74>&#34;[http://windowscoding.com/blogs/MainFeed.aspx](http://windowscoding.com/blogs/MainFeed.aspx)&#34;</span>, <span style=color:#e6db74>&#34;windowscoding.com&#34;</span>)) {
+</span><span style=color:#75715e></span><span style=color:#66d9ef>if</span> (AddIE7Feed(<span style=color:#e6db74>&#34;&#34;</span>, <span style=color:#e6db74>&#34;[https://windowscoding.com/blogs/MainFeed.aspx](https://windowscoding.com/blogs/MainFeed.aspx)&#34;</span>, <span style=color:#e6db74>&#34;windowscoding.com&#34;</span>)) {
   MessageBox.Show(<span style=color:#e6db74>&#34;Feed was added successfully&#34;</span>);
 } <span style=color:#66d9ef>else</span> {
   MessageBox.Show(<span style=color:#e6db74>&#34;Failed to add the Feed&#34;</span>);
