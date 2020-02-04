@@ -2784,11 +2784,8 @@
 	    }
 
 	#social-share .icons li {
-	  padding: 0 !important;
-	  padding-bottom: 10px !important;
+	  padding: 0 5px 10px 0 !important;
 	}
-
-
 
 	  #social-share .share-btn {
 	    padding: 0.5em;
