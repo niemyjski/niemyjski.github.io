@@ -100,4 +100,6 @@
 
 }(window, document, 0));
 
-disqusLoader(disqusLoaderSettings.element, disqusLoaderSettings.options);
+if (disqusLoaderSettings) {
+  disqusLoader(disqusLoaderSettings.element, disqusLoaderSettings.options);
+}
