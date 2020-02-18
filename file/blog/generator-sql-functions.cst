@@ -1,0 +1,24 @@
+<%-- 
+Name: Blake Niemyjski
+Description: Shows off how to use SQL Functions.
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" CompilerVersion="v3.5" Description="Template description here." %>
+<%@ Property Name="SourceDatabase" Type="SchemaExplorer.DatabaseSchema" Category="Required" Description="Database that contain the stored procedures." IncludeFunctions="True" %>
+<%-- Register referenced assemblies.  --%>
+<%@ Assembly Name="CodeSmith.CustomProperties" %>
+<%@ Assembly Name="SchemaExplorer" %>
+
+<%-- Import commonly used namespaces. --%>
+<%@ Import Namespace="CodeSmith.CustomProperties" %>
+<%@ Import Namespace="SchemaExplorer" %>
+
+<% foreach (CommandSchema command in SourceDatabase.Commands) { %>
+Name: <%= command.Name %>
+    Return Value: <%= command.Parameters["@RETURN_VALUE"].SystemType %>
+    Is CLR: <%= command.ExtendedProperties["CS_IsCLR"].Value %>
+    Is Scalar Function: <%= command.ExtendedProperties["CS_IsScalarFunction"].Value %>
+    Is Table Valued Function: <%= command.ExtendedProperties["CS_IsTableValuedFunction"].Value %>
+    Is Inline Table Valued Function: <%= command.ExtendedProperties["CS_IsInlineTableValuedFunction"].Value %>
+    Is Multi Statement Table Valued Function: <%= command.ExtendedProperties["CS_IsMultiStatementTableValuedFunction"].Value %>
+    
+<% } %>
