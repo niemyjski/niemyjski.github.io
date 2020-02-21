@@ -16,15 +16,18 @@ by default will not automatically execute the generated stored&mldr;</p><footer>
 <span class=author></span><p>5 minute read</p></div></header><p>One of the best features of code generation is the reality of being able to
 actively generate you code while preserving custom changes. This allows you to
 implement custom logic while constantly making changes to your metadata and
-getting the latest template changes. <a href=https://www.codesmithtools.com/product/generator>CodeSmith Generator</a>
-has worked hard on making this happen in both the <a href=https://plinqo.com/>PLINQO</a>
-and <a href=https://www.codesmithtools.com/product/frameworks#csla>CSLA Templates</a>.
+getting the latest template changes.
+<a href=https://www.codesmithtools.com/product/generator>CodeSmith Generator</a> has
+worked hard on making this happen in both the
+<a href=https://www.codesmithtools.com/product/frameworks>PLINQO</a> and
+<a href=https://www.codesmithtools.com/product/frameworks#csla>CSLA Templates</a>.
 The CSLA templates offer many partial method overrides to make your life easier.
 It is recommended that you place any partial methods&mldr;</p><footer><ul class=actions><li><a href=https://blakeniemyjski.com/blog/how-to-use-partial-methods-to-preserve-custom-csla-code-and-promote-active-regeneration/ class="button big">Continue Reading</a></li></ul><ul class=stats><li class=categories><ul><i class="fas fa-folder"></i><li><a class=article-category-link href=https://blakeniemyjski.com/categories/programming>Programming</a></li></ul></li><li class=tags><ul><i class="fas fa-tags"></i><li><a class=article-category-link href=https://blakeniemyjski.com/tags/csla>CSLA</a></li></ul></li></ul></footer></article><article class=post><header><div class=title><h2><a href=https://blakeniemyjski.com/blog/breaking-csla-4.0-property-changes-when-using-private-backing-fields/>Breaking CSLA 4.0 property changes when using private backing fields.</a></h2></div><div class=meta><time class=published datetime=2010-07-28>July 28, 2010</time>
 <span class=author></span><p>3 minute read</p></div></header><p>I came across this <a href="https://www.lhotka.net/cslabugs/edit_bug.aspx?id=813">bug last night</a>,
 which was occurring right as <a href=https://www.lhotka.net/weblog/CSLA4Release.aspx>CSLA 4</a>
-was released. It had to deal with the <a href=https://www.codesmithtools.com/product/frameworks#csla>CodeSmith CSLA templates</a>
-when you set **UseMemberVariables **to true. The error is quite obscure and not
+was released. It had to deal with the
+<a href=https://www.codesmithtools.com/product/frameworks#csla>CodeSmith CSLA templates</a>
+when you set <code>UseMemberVariables</code> to <code>true</code>. The error is quite obscure and not
 very intuitive as the signs of a bug are only found when you check to see if
 your business object IsValid. The scenario in this case is when you set a
 required managed property, the rules never fully evaluate the set value. A

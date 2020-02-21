@@ -10,7 +10,7 @@ together. I suspect that we will have at least one maybe two days left of just
 classifying and merging data.</p><p>There were several things that I learned today, most of it was MS SQL commands
 like (<code>sp_who</code>, <code>sp_lock</code>, <code>sp_helptext</code>, <code>kill 60</code>). It is always nice to see
 the commands in action and get a detailed explanation of what they return and
-do.</p><p><a href=https://jasona.net>Jason Alexander</a> showed use one other command it was</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>Select</span> Top <span style=color:#ae81ff>1</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>from</span> cs_xxx
+do.</p><p><a href=http://jasona.net>Jason Alexander</a> showed use one other command it was</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>Select</span> Top <span style=color:#ae81ff>1</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>from</span> cs_xxx
 </code></pre></div><p>And he explained that it has a lot of overhead because it pulls down all the
 data and then returns the top result. So a better way of doing it would be to
 pull down only one result with the following:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>Set</span> RowCount <span style=color:#ae81ff>1</span>

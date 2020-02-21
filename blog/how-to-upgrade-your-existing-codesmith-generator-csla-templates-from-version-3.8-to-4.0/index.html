@@ -4,17 +4,17 @@
 <span class=author></span><p>2 minute read</p></div></header><section id=social-share><ul class=icons><li><a href="//twitter.com/share?url=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-upgrade-your-existing-codesmith-generator-csla-templates-from-version-3.8-to-4.0%2f&text=How-to%3a%20Upgrade%20your%20existing%20CodeSmith%20Generator%20CSLA%20templates%20from%20version%203.8%20to%204.0&via=blaken" target=_blank rel=noopener class="share-btn twitter"><i class="fab fa-twitter"></i><p>Twitter</p></a></li><li><a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-upgrade-your-existing-codesmith-generator-csla-templates-from-version-3.8-to-4.0%2f" target=_blank rel=noopener class="share-btn facebook"><i class="fab fa-facebook"></i><p>Facebook</p></a></li><li><a href="//reddit.com/submit?url=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-upgrade-your-existing-codesmith-generator-csla-templates-from-version-3.8-to-4.0%2f&title=How-to%3a%20Upgrade%20your%20existing%20CodeSmith%20Generator%20CSLA%20templates%20from%20version%203.8%20to%204.0" target=_blank rel=noopener class="share-btn reddit"><i class="fab fa-reddit-alien"></i><p>Reddit</p></a></li><li><a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-upgrade-your-existing-codesmith-generator-csla-templates-from-version-3.8-to-4.0%2f&title=How-to%3a%20Upgrade%20your%20existing%20CodeSmith%20Generator%20CSLA%20templates%20from%20version%203.8%20to%204.0" target=_blank rel=noopener class="share-btn linkedin"><i class="fab fa-linkedin"></i><p>LinkedIn</p></a></li><li><a href="mailto:?subject=Check out this post by &body=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-upgrade-your-existing-codesmith-generator-csla-templates-from-version-3.8-to-4.0%2f" target=_blank rel=noopener class="share-btn email"><i class="fas fa-envelope"></i><p>Email</p></a></li></ul></section><div id=content><p>We recently released a new major version of the
 <a href=https://www.codesmithtools.com/product/frameworks#csla>CodeSmith Generator CSLA templates</a>
 that add support for many new features including Visual Studio 2010, CSLA 4.0
-and Silverlight 4.0 support. They can be downloaded <a href=https://code.google.com/p/codesmith/downloads/>here</a>.
-When upgrading to the templates and you are going from CSLA 3.8 to the latest
-CSLA 3.8.4 templates, there really aren&rsquo;t any changes you need to make other
-than updating your CodeSmith Project File template location to point to the new
-version of the templates. The easiest way to do this is to open up Visual
-Studio and double click on the CodeSmith Project File and do a replace all on
-that file path as this will update all file paths in all CodeSmith Project
-Files.</p><p><img src=https://blakeniemyjski.com/img/blog/csla-templates-replace-path.png alt="CSLA Template Replace Path"></p><p>If you are upgrading from CSLA 3.8 to CSLA 4.0 then additional work is
+and Silverlight 4.0 support. They can be downloaded
+<a href=https://github.com/codesmithtools/Templates/releases>here</a>. When upgrading to
+the templates and you are going from CSLA 3.8 to the latest CSLA 3.8.4 templates,
+there really aren&rsquo;t any changes you need to make other than updating your
+CodeSmith Project File template location to point to the new version of the
+templates. The easiest way to do this is to open up Visual Studio and double
+click on the CodeSmith Project File and do a replace all on that file path as
+this will update all file paths in all CodeSmith Project Files.</p><p><img src=https://blakeniemyjski.com/img/blog/csla-templates-replace-path.png alt="CSLA Template Replace Path"></p><p>If you are upgrading from CSLA 3.8 to CSLA 4.0 then additional work is
 required. The first step is to convert your solution to Visual Studio 2010 and
 set all the projects to use the .NET Framework v4.0.</p><p><img src=https://blakeniemyjski.com/img/blog/csla-petshop-update-dotnet-target-framework.png alt="PetShop Update .NET Target Framework"></p><p>Secondly, you will need to do is go into your CodeSmith Project Settings and
-change the **FrameworkVersion **Property from <code>v35</code> to <code>v40</code>. If you are
+change the <code>FrameworkVersion</code> Property from <code>v35</code> to <code>v40</code>. If you are
 planning on using Silverlight it is best to set the
 <strong>IncludeSilverlightSupport</strong> property to true to save you additional merging
 steps.</p><p><img src=https://blakeniemyjski.com/img/blog/csla-entities-csp-edit-output.png alt="Edit Output - Entities.csp"></p><p>The next step is to regenerate the files; you will notice that there are some
@@ -25,7 +25,7 @@ make any changes to the non-generated partial classes (E.G. <code>Account.cs</co
 it to <code>**.\**</code>.</p><p>If this is not the case then I recommend backing up your solution if it is not
 under source control (<strong>highly recommended</strong>). I would copy the CodeSmith
 Project File to a new folder and use a program like
-<a href=https://www.scootersoftware.com/moreinfo.php>Beyond Compare</a> to merge the
+<a href=https://www.scootersoftware.com/features.php>Beyond Compare</a> to merge the
 partial classes together. Since you have already regenerated, the generated
 partial classes will be in sync with CSLA 4.0 and won&rsquo;t require a diff so your
 favorite diffing program will tell you that there is no work needing to be
