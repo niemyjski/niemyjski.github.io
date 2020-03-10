@@ -2940,3 +2940,24 @@
 				}
 
 			}
+
+/* Mailing List */
+form.email-form div.email-container {
+}
+
+form.email-form input#email {
+	display: inline-block;
+  width: calc(100% - 130px);
+}
+
+form.email-form button#subscribe.button {
+	width: 126px;
+}
+
+.email-form-success {
+	background-color: #2ebaae;
+}
+
+.email-form-error {
+	color: #d3401f;
+}
