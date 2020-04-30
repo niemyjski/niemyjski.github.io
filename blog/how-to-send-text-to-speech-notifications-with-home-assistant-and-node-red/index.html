@@ -1,0 +1,247 @@
+<!doctype html><html lang=en><head><link rel=dns-prefetch href=https://fonts.googleapis.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=https://fonts.gstatic.com><link rel=dns-prefetch href=https://cdnjs.cloudflare.com><link rel=dns-prefetch href=https://www.google-analytics.com><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blakeniemyjski.com\/"},"articleSection":"blog","name":"How-to send Text-to-Speech notifications with Home Assistant and Node-RED","headline":"How-to send Text-to-Speech notifications with Home Assistant and Node-RED","description":"Have you ever wanted to send Text-to-Speech (TTS) notifications with Home Assistant and Node-RED? In the sections below I\x26rsquo;m going to be using Amazon Alexa Media Player Integration to send TTS notifications. Please note you can easily switch out the TTS integration to the one of your choosing and still use this Subflow (with a few tweaks).\nThis is one of my favorite Subflows as it can be used easily in a lot of automations.","inLanguage":"en","author":"","creator":"","publisher":"","accountablePerson":"","copyrightHolder":"","copyrightYear":"30300","datePublished":"2020-04-30 17:35:00 -0500 -0500","dateModified":"2020-04-30 17:35:00 -0500 -0500","url":"https:\/\/blakeniemyjski.com\/blog\/how-to-send-text-to-speech-notifications-with-home-assistant-and-node-red\/","wordCount":"1036","keywords":["Home Assistant","Volume","Audio","Device State","Node-RED","Automation","Ecobee Switch\x2b","media_device","Blog"]}</script><title>How-to send Text-to-Speech notifications with Home Assistant and Node-RED</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.69.2"><meta name=description content="Blake Niemyjski"><meta name=twitter:card content="summary"><meta name=twitter:title content="How-to send Text-to-Speech notifications with Home Assistant and Node-RED"><meta name=twitter:description content="Have you ever wanted to send Text-to-Speech (TTS) notifications with Home Assistant and Node-RED? In the sections below I&rsquo;m going to be using Amazon Alexa Media Player Integration to send TTS notifications. Please note you can easily switch out the TTS integration to the one of your choosing and still use this Subflow (with a few tweaks).
+This is one of my favorite Subflows as it can be used easily in a lot of automations."><meta name=twitter:site content="@blaken"><meta property="og:title" content="How-to send Text-to-Speech notifications with Home Assistant and Node-RED"><meta property="og:description" content="Have you ever wanted to send Text-to-Speech (TTS) notifications with Home Assistant and Node-RED? In the sections below I&rsquo;m going to be using Amazon Alexa Media Player Integration to send TTS notifications. Please note you can easily switch out the TTS integration to the one of your choosing and still use this Subflow (with a few tweaks).
+This is one of my favorite Subflows as it can be used easily in a lot of automations."><meta property="og:type" content="article"><meta property="og:url" content="https://blakeniemyjski.com/blog/how-to-send-text-to-speech-notifications-with-home-assistant-and-node-red/"><meta property="article:published_time" content="2020-04-30T17:35:00-05:00"><meta property="article:modified_time" content="2020-04-30T17:35:00-05:00"><meta property="og:image" content="https://blakeniemyjski.com//images/logo.png"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="512"><meta property="og:image:height" content="512"><meta itemprop=name content="How-to send Text-to-Speech notifications with Home Assistant and Node-RED"><meta itemprop=description content="Have you ever wanted to send Text-to-Speech (TTS) notifications with Home Assistant and Node-RED? In the sections below I&rsquo;m going to be using Amazon Alexa Media Player Integration to send TTS notifications. Please note you can easily switch out the TTS integration to the one of your choosing and still use this Subflow (with a few tweaks).
+This is one of my favorite Subflows as it can be used easily in a lot of automations."><meta itemprop=datePublished content="2020-04-30T17:35:00-05:00"><meta itemprop=dateModified content="2020-04-30T17:35:00-05:00"><meta itemprop=wordCount content="1036"><meta itemprop=keywords content="Home Assistant,Volume,Audio,Device State,Node-RED,Automation,Ecobee Switch+,media_device,"><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700&display=swap"><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.12.0/css/all.css><link rel=stylesheet href=https://blakeniemyjski.com/css/main.css><link href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/vs.min.css rel=stylesheet type=text/css><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create','UA-3422587-1','auto');ga('send','pageview');}</script></head><body><div id=wrapper><header id=header><h1><a href=https://blakeniemyjski.com/>blog</a></h1><nav class=links><ul><li><a href=https://blakeniemyjski.com/><i class="fas fa-home"></i>&nbsp;Home</a></li><li><a href=https://blakeniemyjski.com/categories/home-automation/><i class="fas fa-magic"></i>&nbsp;Home Automation</a></li><li><a href=https://blakeniemyjski.com/categories/programming/><i class="fas fa-code"></i>&nbsp;Programming</a></li><li><a href=https://blakeniemyjski.com/categories/review/><i class="fas fa-book"></i>&nbsp;Reviews</a></li><li><a href=https://blakeniemyjski.com/categories/public-speaking/><i class="fas fa-comments"></i>&nbsp;Public Speaking</a></li><li><a href=https://blakeniemyjski.com/about/><i class="fas fa-id-card"></i>&nbsp;About</a></li></ul></nav><nav class=main><ul><li id=share-nav class=share-menu style=display:none><a class=fa-share-alt href=#share-menu>Share</a></li><li class=search><a class=fa-search href=#search>Search</a><form id=search method=get action=//google.com/search><input type=text name=q placeholder=Search aria-label=Search>
+<input type=hidden name=as_sitesearch value=https://blakeniemyjski.com/></form></li><li class=menu><a class=fa-bars href=#menu>Menu</a></li></ul></nav></header><section id=menu><section><form class=search method=get action=//google.com/search><input type=text name=q placeholder=Search>
+<input type=hidden name=as_sitesearch value=https://blakeniemyjski.com/></form></section><section><ul class=links><li><a href=https://blakeniemyjski.com/><h3><i class="fas fa-home"></i>&nbsp;Home</h3></a></li><li><a href=https://blakeniemyjski.com/categories/home-automation/><h3><i class="fas fa-magic"></i>&nbsp;Home Automation</h3></a></li><li><a href=https://blakeniemyjski.com/categories/programming/><h3><i class="fas fa-code"></i>&nbsp;Programming</h3></a></li><li><a href=https://blakeniemyjski.com/categories/review/><h3><i class="fas fa-book"></i>&nbsp;Reviews</h3></a></li><li><a href=https://blakeniemyjski.com/categories/public-speaking/><h3><i class="fas fa-comments"></i>&nbsp;Public Speaking</h3></a></li><li><a href=https://blakeniemyjski.com/about/><h3><i class="fas fa-id-card"></i>&nbsp;About</h3></a></li></ul></section><section class=recent-posts><div class=mini-posts><header><h3>Recent Posts</h3></header><article class=mini-post><header><h3><a href=https://blakeniemyjski.com/blog/how-to-send-text-to-speech-notifications-with-home-assistant-and-node-red/>How-to send Text-to-Speech notifications with Home Assistant and Node-RED</a></h3><time class=published datetime=2020-04-30>April 30, 2020</time></header></article><article class=mini-post><header><h3><a href=https://blakeniemyjski.com/blog/lets-talk-about-smart-home-accessibility/>Let's talk about smart home accessibility</a></h3><time class=published datetime=2020-03-26>March 26, 2020</time></header></article><article class=mini-post><header><h3><a href=https://blakeniemyjski.com/blog/lessons-learned-from-working-at-home-for-over-a-decade/>Lessons learned from working at home for over a decade</a></h3><time class=published datetime=2020-03-10>March 10, 2020</time></header></article><article class=mini-post><header><h3><a href=https://blakeniemyjski.com/blog/installing-home-assistant-on-ubuntu/>Installing Home Assistant on Ubuntu</a></h3><time class=published datetime=2020-03-09>March 9, 2020</time></header></article><a href=/categories/ class=button>View more posts</a></div></section></section><section id=share-menu><section id=social-share-nav><ul class=links><header><h3>Share this post <i class="fas fa-smile"></i></h3></header><li><a href="//twitter.com/share?url=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-send-text-to-speech-notifications-with-home-assistant-and-node-red%2f&text=How-to%20send%20Text-to-Speech%20notifications%20with%20Home%20Assistant%20and%20Node-RED&via=blaken" target=_blank rel=noopener class="share-btn twitter" aria-label="Share To Twitter"><i class="fab fa-twitter"></i><p>Twitter</p></a></li><li><a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-send-text-to-speech-notifications-with-home-assistant-and-node-red%2f" target=_blank rel=noopener class="share-btn facebook" aria-label="Share To Facebook"><i class="fab fa-facebook"></i><p>Facebook</p></a></li><li><a href="//reddit.com/submit?url=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-send-text-to-speech-notifications-with-home-assistant-and-node-red%2f&title=How-to%20send%20Text-to-Speech%20notifications%20with%20Home%20Assistant%20and%20Node-RED" target=_blank rel=noopener class="share-btn reddit" aria-label="Share To Reddit"><i class="fab fa-reddit-alien"></i><p>Reddit</p></a></li><li><a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-send-text-to-speech-notifications-with-home-assistant-and-node-red%2f&title=How-to%20send%20Text-to-Speech%20notifications%20with%20Home%20Assistant%20and%20Node-RED" target=_blank rel=noopener class="share-btn linkedin" aria-label="Share To LinkedIn"><i class="fab fa-linkedin"></i><p>LinkedIn</p></a></li><li><a href="mailto:?subject=Check out this post by &body=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-send-text-to-speech-notifications-with-home-assistant-and-node-red%2f" target=_blank rel=noopener class="share-btn email" aria-label="Share To Email"><i class="fas fa-envelope"></i><p>Email</p></a></li></ul></section></section><div id=main><article class=post><header><div class=title><h1><a href=https://blakeniemyjski.com/blog/how-to-send-text-to-speech-notifications-with-home-assistant-and-node-red/>How-to send Text-to-Speech notifications with Home Assistant and Node-RED</a></h1></div><div class=meta><time class=published datetime=2020-04-30>April 30, 2020</time>
+<span class=author></span><p>5 minute read</p></div></header><section id=social-share><ul class=icons><li><a href="//twitter.com/share?url=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-send-text-to-speech-notifications-with-home-assistant-and-node-red%2f&text=How-to%20send%20Text-to-Speech%20notifications%20with%20Home%20Assistant%20and%20Node-RED&via=blaken" target=_blank rel=noopener class="share-btn twitter" aria-label="Share To Twitter"><i class="fab fa-twitter"></i><p>Twitter</p></a></li><li><a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-send-text-to-speech-notifications-with-home-assistant-and-node-red%2f" target=_blank rel=noopener class="share-btn facebook" aria-label="Share To Facebook"><i class="fab fa-facebook"></i><p>Facebook</p></a></li><li><a href="//reddit.com/submit?url=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-send-text-to-speech-notifications-with-home-assistant-and-node-red%2f&title=How-to%20send%20Text-to-Speech%20notifications%20with%20Home%20Assistant%20and%20Node-RED" target=_blank rel=noopener class="share-btn reddit" aria-label="Share To Reddit"><i class="fab fa-reddit-alien"></i><p>Reddit</p></a></li><li><a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-send-text-to-speech-notifications-with-home-assistant-and-node-red%2f&title=How-to%20send%20Text-to-Speech%20notifications%20with%20Home%20Assistant%20and%20Node-RED" target=_blank rel=noopener class="share-btn linkedin" aria-label="Share To LinkedIn"><i class="fab fa-linkedin"></i><p>LinkedIn</p></a></li><li><a href="mailto:?subject=Check out this post by &body=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-send-text-to-speech-notifications-with-home-assistant-and-node-red%2f" target=_blank rel=noopener class="share-btn email" aria-label="Share To Email"><i class="fas fa-envelope"></i><p>Email</p></a></li></ul></section><div id=content><p>Have you ever wanted to send Text-to-Speech (TTS) notifications with
+<a href=https://www.home-assistant.io>Home Assistant</a> and
+<a href=https://nodered.org>Node-RED</a>? In the sections below I&rsquo;m going to be using
+<a href=https://github.com/custom-components/alexa_media_player>Amazon Alexa Media Player Integration</a>
+to send TTS notifications. Please note you can easily switch out the
+<a href=https://www.home-assistant.io/integrations/tts/>TTS integration</a> to the one
+of your choosing and still use this Subflow (with a few tweaks).</p><p>This is one of my favorite
+<a href=https://nodered.org/docs/user-guide/editor/workspace/subflows>Subflows</a> as it
+can be used easily in a lot of automations. I use it in my automations to
+announce:</p><ul><li>Friendly state change notifications for accessibility (e.g., motion detected
+in room abc, lights turning on in the current room, the garage door was unlocked).</li><li>General announcements (e.g., welcome to our home, it&rsquo;s bedtime).</li><li>Weather related announcements and warnings.</li></ul><blockquote><p>If you are new to Node-RED, I&rsquo;d recommend checking out this awesome
+<a href="https://www.youtube.com/watch?v=SuoSXVqjyfc&list=PL-51DG-VULPqeoYGyIrainyWc-_MnFb-y">YouTube Node-RED playlist</a>
+to get up to speed!</p></blockquote><h3 id=alexa-media-player-custom-component>Alexa Media Player Custom Component</h3><p>If you haven&rsquo;t done so already, install the
+<a href=https://github.com/custom-components/alexa_media_player>Alexa Media Player Custom Component</a>
+if you are using Alexa, otherwise skip this section.</p><p>This addon is amazing as it normalizes all of your Alexa enabled devices such
+as the
+<a href="https://www.amazon.com/all-new-Echo/dp/B07NFTVP7P?tag=niemyjski-20">Amazon Echo</a>
+or <a href="https://www.amazon.com/ecobee-Switch-Smart-Amazon-Built/dp/B0798LCLJ5?tag=niemyjski-20">ecobee Switch+</a>
+into a <code>media_device</code> that can be used by Home Assistant. Once configured you
+can simply verify the device you want to send a message is working by calling
+the <code>notify.alexa_media</code> service with the payload:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#66d9ef>message</span>: <span style=color:#e6db74>&#34;Text-to-Speech is easy&#34;</span>
+<span style=color:#66d9ef>data</span>:
+  <span style=color:#66d9ef>type</span>: <span style=color:#e6db74>&#34;tts&#34;</span>
+<span style=color:#66d9ef>target</span>: [<span style=color:#e6db74>&#34;media_player.amazon_echo_plus&#34;</span>]
+</code></pre></div><p>If you don&rsquo;t hear anything after calling this service, stop and check the
+logs. This will help diagnose why you are not getting TTS notifications before
+continuing.</p><h2 id=input-boolean-to-control-automations>Input Boolean to control automations</h2><p>I highly recommend adding an <a href=https://www.home-assistant.io/integrations/input_boolean/>Input Boolean</a>
+that controls if audible notifications occur. It could get pretty annoying if
+you are constantly hearing notifications for automations that are running
+unless it&rsquo;s desired. Here is my <code>input_boolean</code> that I use for this automation.
+If you choose a different name, be sure to update the code below.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#66d9ef>automation_notifications</span>:
+  <span style=color:#66d9ef>name</span>: Notify when an automation is triggered
+  <span style=color:#66d9ef>icon</span>: mdi:home-automation
+</code></pre></div><h2 id=send-automation-speech-notification-subflow>Send Automation Speech Notification Subflow</h2><p>Lets open Node-RED and create a new Subflow with a
+<a href=https://nodered.org/docs/creating-nodes/status#note--status-node>Status Node</a>,
+<code>Input Node</code> and <code>Output Node</code>. I really like using the <code>Status Node</code> to capture
+all statuses as it allows for a better experience using Subflows by showing you
+a visual indication of the current status. Also, I like specifying an
+<code>Output Node</code> as it allows a node to be part of a series when the Subflow has
+completed. It&rsquo;s worth noting that this <code>Output Node</code> will only be called if the
+notification is sent.</p><script defer src=https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.min.js></script><script defer src=https://blakeniemyjski.com/js/mermaid.js></script><div class=mermaid align=center>graph TD
+StatusNode(fas:fa-random Status: All) --> StatusOutputNode(Status)
+InputNode(Input) --> AFunctionNode(fas:fa-code Check For Overrides)
+AFunctionNode --> BCurrentStateNode(fas:fa-database Speech Notifications?)
+AFunctionNode --> |Announcement Override| CFunctionNode(fas:fa-code Set Speech Payload)
+BCurrentStateNode --> CFunctionNode
+CFunctionNode --> DCallServiceNode(fas:fa-play Send Speech Notification)
+DCallServiceNode --> OutputNode(Output 1)
+style StatusNode fill:#ECF5FF
+style StatusOutputNode fill:#FAFAFB
+style InputNode fill:#FAFAFB
+style AFunctionNode fill:#FBB68F
+style BCurrentStateNode fill:#66ACFD
+style CFunctionNode fill:#FBB68F
+style DCallServiceNode fill:#66ACFD
+style OutputNode fill:#FAFAFB
+linkStyle default stroke-width:2px,fill:none,stroke:#CCD0D4</div><p>Let&rsquo;s break down the Subflow. The incoming message gets passed to the
+<code>Check For Overrides</code> node. This node simply checks to see if the
+<code>msg.payload.announcement</code> is set to <code>true</code>. If <code>true</code>, then it will always send
+the TTS notification. Otherwise it will call the <code>Speech Notifications?</code>
+<code>Current State Node</code> to see if the <code>input_boolean.automation_notifications</code> is
+<code>true</code>. To recap, we will only call <code>Set Speech Payload</code> if it an <code>announcement</code>
+is <code>true</code> or our <code>input_boolean.automation_notifications</code> is <code>true</code>.</p><p>The <code>Set Speech Payload</code> node will return a new payload that the
+<code>Send Speech Notification</code> <code>Service Call Node</code> is expecting. If you are not
+using the <code>alexa_media_player</code> Home Assistant addon, you&rsquo;ll want to update
+both of these nodes for the correct payload and service call.</p><p>You can then trigger this Subflow by passing a message object with the
+following payload. I recommend using a <a href=https://nodered.org/docs/user-guide/nodes>Inject Node</a>
+to test this out.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js>{
+    <span style=color:#e6db74>&#34;announcement&#34;</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>true</span>,
+    <span style=color:#e6db74>&#34;entity_id&#34;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;media_player.amazon_echo_plus&#34;</span>,
+    <span style=color:#e6db74>&#34;message&#34;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;test&#34;</span>
+}
+</code></pre></div><p>When triggering this Subflow it&rsquo;s a good idea to pick the closest speaker to
+where the automation is occurring.</p><p>Here is the exported Node-RED subflow.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>[
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;7a62a2d3.c0f4a4&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;subflow&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Send Automation Speech Notification&#34;</span>,
+        <span style=color:#f92672>&#34;info&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;category&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;in&#34;</span>: [
+            {
+                <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>60</span>,
+                <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>100</span>,
+                <span style=color:#f92672>&#34;wires&#34;</span>: [
+                    {
+                        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;87411254.a6ed18&#34;</span>
+                    }
+                ]
+            }
+        ],
+        <span style=color:#f92672>&#34;out&#34;</span>: [
+            {
+                <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>1120</span>,
+                <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>100</span>,
+                <span style=color:#f92672>&#34;wires&#34;</span>: [
+                    {
+                        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;d44cc51a.be0668&#34;</span>,
+                        <span style=color:#f92672>&#34;port&#34;</span>: <span style=color:#ae81ff>0</span>
+                    }
+                ]
+            }
+        ],
+        <span style=color:#f92672>&#34;status&#34;</span>: {
+            <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>220</span>,
+            <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>40</span>,
+            <span style=color:#f92672>&#34;wires&#34;</span>: [
+                {
+                    <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;aef53056.742438&#34;</span>,
+                    <span style=color:#f92672>&#34;port&#34;</span>: <span style=color:#ae81ff>0</span>
+                }
+            ]
+        }
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;89300b1.595bcf8&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;function&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;7a62a2d3.c0f4a4&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Set Speech Payload&#34;</span>,
+        <span style=color:#f92672>&#34;func&#34;</span>: <span style=color:#e6db74>&#34;const entity = flow.get(\&#34;$parent.speech_entity_id\&#34;) || (msg.payload &amp;&amp; msg.payload.entity_id) || \&#34;media_player.amazon_echo_plus\&#34;;\nconst message = (msg.payload &amp;&amp; msg.payload.message) || \&#34;Automation provided no message\&#34;;\n\nnode.status({ fill: \&#34;green\&#34;, shape: \&#34;dot\&#34;, text: \&#34;TTS message:\&#34; + message });\nreturn {\n    payload:{\n        data: {\n            message: message,\n            data: { type: \&#34;tts\&#34; },\n            target: [entity]\n        }\n    }\n};&#34;</span>,
+        <span style=color:#f92672>&#34;outputs&#34;</span>: <span style=color:#ae81ff>1</span>,
+        <span style=color:#f92672>&#34;noerr&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>700</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>100</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            [
+                <span style=color:#e6db74>&#34;d44cc51a.be0668&#34;</span>
+            ]
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;d44cc51a.be0668&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;api-call-service&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;7a62a2d3.c0f4a4&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Send Speech Notification&#34;</span>,
+        <span style=color:#f92672>&#34;server&#34;</span>: <span style=color:#e6db74>&#34;61956bd4.93df44&#34;</span>,
+        <span style=color:#f92672>&#34;version&#34;</span>: <span style=color:#ae81ff>1</span>,
+        <span style=color:#f92672>&#34;debugenabled&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;service_domain&#34;</span>: <span style=color:#e6db74>&#34;notify&#34;</span>,
+        <span style=color:#f92672>&#34;service&#34;</span>: <span style=color:#e6db74>&#34;alexa_media&#34;</span>,
+        <span style=color:#f92672>&#34;entityId&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;data&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;dataType&#34;</span>: <span style=color:#e6db74>&#34;json&#34;</span>,
+        <span style=color:#f92672>&#34;mergecontext&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;output_location&#34;</span>: <span style=color:#e6db74>&#34;payload&#34;</span>,
+        <span style=color:#f92672>&#34;output_location_type&#34;</span>: <span style=color:#e6db74>&#34;msg&#34;</span>,
+        <span style=color:#f92672>&#34;mustacheAltTags&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>950</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>100</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            []
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;6add9bc6.4c3624&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;api-current-state&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;7a62a2d3.c0f4a4&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Speech Notifications?&#34;</span>,
+        <span style=color:#f92672>&#34;server&#34;</span>: <span style=color:#e6db74>&#34;61956bd4.93df44&#34;</span>,
+        <span style=color:#f92672>&#34;version&#34;</span>: <span style=color:#ae81ff>1</span>,
+        <span style=color:#f92672>&#34;outputs&#34;</span>: <span style=color:#ae81ff>2</span>,
+        <span style=color:#f92672>&#34;halt_if&#34;</span>: <span style=color:#e6db74>&#34;true&#34;</span>,
+        <span style=color:#f92672>&#34;halt_if_type&#34;</span>: <span style=color:#e6db74>&#34;bool&#34;</span>,
+        <span style=color:#f92672>&#34;halt_if_compare&#34;</span>: <span style=color:#e6db74>&#34;is&#34;</span>,
+        <span style=color:#f92672>&#34;override_topic&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;entity_id&#34;</span>: <span style=color:#e6db74>&#34;input_boolean.automation_notifications&#34;</span>,
+        <span style=color:#f92672>&#34;state_type&#34;</span>: <span style=color:#e6db74>&#34;habool&#34;</span>,
+        <span style=color:#f92672>&#34;state_location&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;override_payload&#34;</span>: <span style=color:#e6db74>&#34;none&#34;</span>,
+        <span style=color:#f92672>&#34;entity_location&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;override_data&#34;</span>: <span style=color:#e6db74>&#34;none&#34;</span>,
+        <span style=color:#f92672>&#34;blockInputOverrides&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>440</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>140</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            [
+                <span style=color:#e6db74>&#34;89300b1.595bcf8&#34;</span>
+            ],
+            []
+        ],
+        <span style=color:#f92672>&#34;outputLabels&#34;</span>: [
+            <span style=color:#e6db74>&#34;&#34;</span>,
+            <span style=color:#e6db74>&#34;enabled&#34;</span>
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;aef53056.742438&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;status&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;7a62a2d3.c0f4a4&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;scope&#34;</span>: <span style=color:#66d9ef>null</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>100</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>40</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            []
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;87411254.a6ed18&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;function&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;7a62a2d3.c0f4a4&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Check for overrides&#34;</span>,
+        <span style=color:#f92672>&#34;func&#34;</span>: <span style=color:#e6db74>&#34;const alwaysSpeak = msg.payload &amp;&amp; msg.payload.announcement\nif (alwaysSpeak) {\n    return [msg, null];\n} else {\n    return [null, msg];\n}&#34;</span>,
+        <span style=color:#f92672>&#34;outputs&#34;</span>: <span style=color:#ae81ff>2</span>,
+        <span style=color:#f92672>&#34;noerr&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>210</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>100</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            [
+                <span style=color:#e6db74>&#34;89300b1.595bcf8&#34;</span>
+            ],
+            [
+                <span style=color:#e6db74>&#34;6add9bc6.4c3624&#34;</span>
+            ]
+        ],
+        <span style=color:#f92672>&#34;outputLabels&#34;</span>: [
+            <span style=color:#e6db74>&#34;Bypass notification&#34;</span>,
+            <span style=color:#e6db74>&#34;Check for notifications&#34;</span>
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;61956bd4.93df44&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;server&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Home Assistant&#34;</span>,
+        <span style=color:#f92672>&#34;legacy&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;addon&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;rejectUnauthorizedCerts&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;ha_boolean&#34;</span>: <span style=color:#e6db74>&#34;y|yes|true|on|home|open&#34;</span>,
+        <span style=color:#f92672>&#34;connectionDelay&#34;</span>: <span style=color:#66d9ef>true</span>
+    }
+]
+</code></pre></div><h2 id=conclusion>Conclusion</h2><p>I hope this article inspired you to create your own reusable Subflows that you
+can use in your various automations. I&rsquo;ve found this Subflow to be super useful,
+let me know how it works out for you!</p></div><footer><ul class=stats><li class=categories><ul><i class="fas fa-folder"></i><li><a class=article-category-link href=https://blakeniemyjski.com/categories/home-automation>Home Automation</a></li></ul></li><li class=tags><ul><i class="fas fa-tags"></i><li><a class=article-category-link href=https://blakeniemyjski.com/tags/home-assistant>Home Assistant</a></li><li><a class=article-category-link href=https://blakeniemyjski.com/tags/volume>Volume</a></li><li><a class=article-category-link href=https://blakeniemyjski.com/tags/audio>Audio</a></li><li><a class=article-category-link href=https://blakeniemyjski.com/tags/device-state>Device State</a></li><li><a class=article-category-link href=https://blakeniemyjski.com/tags/node-red>Node-RED</a></li><li><a class=article-category-link href=https://blakeniemyjski.com/tags/automation>Automation</a></li><li><a class=article-category-link href=https://blakeniemyjski.com/tags/ecobee-switch+>Ecobee Switch+</a></li><li><a class=article-category-link href=https://blakeniemyjski.com/tags/media_device>media_device</a></li></ul></li></ul></footer><div id=mailing-list><h3>Join the mailing list</h3>Get notified of new posts and related content to your inbox. I will never sell
+you anything and I will NEVER sell your email address.<form class=email-form name=newsletter method=post data-netlify=true netlify-honeypot=bot-field><div hidden aria-hidden=true><label>Don't fill this out if you're human:
+<input name=bot-field></label></div><label for=email>Your email address</label><div class=email-container><input type=email name=email placeholder=Email id=email required>
+<button name=submit class=button type=submit id=subscribe>Subscribe</button></div></form></div></article><article class=post><div class=disqus></div><script>(function(){var disqus_shortname='niemyjski';window.disqusLoaderSettings={element:'.disqus',options:{scriptUrl:'//'+disqus_shortname+'.disqus.com/embed.js',disqusConfig:function(){this.page.url="https:\/\/blakeniemyjski.com\/blog\/how-to-send-text-to-speech-notifications-with-home-assistant-and-node-red\/";this.page.identifier="https:\/\/blakeniemyjski.com\/blog\/how-to-send-text-to-speech-notifications-with-home-assistant-and-node-red\/";}}};})();</script></article><ul class="actions pagination"><li><a href=https://blakeniemyjski.com/blog/lets-talk-about-smart-home-accessibility/ class="button big previous">Let's talk about smart home accessibility</a></li></ul></div><section id=sidebar><section id=intro><a href=https://blakeniemyjski.com/><img src=https://blakeniemyjski.com/img/logo.jpeg class=intro-circle width=250 alt="Blake Niemyjski"></a><header><h2>Blake Niemyjski</h2><p>Passionate about building software</p></header><ul class=icons><li><a href=https://blakeniemyjski.com/index.xml type=application/rss+xml target=_blank title=RSS><i class="fas fa-rss"></i></a></li><li><a href=//github.com/niemyjski target=_blank title=GitHub><i class="fab fa-github"></i></a></li><li><a href=//stackoverflow.com/users/199701 target=_blank title="Stack Overflow"><i class="fab fa-stack-overflow"></i></a></li><li><a href=//linkedin.com/in/niemyjski target=_blank title=LinkedIn><i class="fab fa-linkedin"></i></a></li><li><a href=//reddit.com/user/bniemyjski target=_blank title=Reddit><i class="fab fa-reddit"></i></a></li><li><a href=//youtube.com/bniemyjski target=_blank title=YouTube><i class="fab fa-youtube"></i></a></li><li><a href=//instagram.com/blake.niemyjski target=_blank title=Instagram><i class="fab fa-instagram"></i></a></li><li><a href=//twitter.com/blaken target=_blank title=Twitter><i class="fab fa-twitter"></i></a></li><li><a href=mailto:bniemyjski@gmail.com title=Email><i class="fas fa-envelope"></i></a></li></ul></section><section class=recent-posts><div class=mini-posts><header><h3>Recent Posts</h3></header><div class=posts-container><article class=mini-post><header><h3><a href=https://blakeniemyjski.com/blog/how-to-send-text-to-speech-notifications-with-home-assistant-and-node-red/>How-to send Text-to-Speech notifications with Home Assistant and Node-RED</a></h3><time class=published datetime=2020-04-30>April 30, 2020</time></header></article><article class=mini-post><header><h3><a href=https://blakeniemyjski.com/blog/lets-talk-about-smart-home-accessibility/>Let's talk about smart home accessibility</a></h3><time class=published datetime=2020-03-26>March 26, 2020</time></header></article><article class=mini-post><header><h3><a href=https://blakeniemyjski.com/blog/lessons-learned-from-working-at-home-for-over-a-decade/>Lessons learned from working at home for over a decade</a></h3><time class=published datetime=2020-03-10>March 10, 2020</time></header></article><article class=mini-post><header><h3><a href=https://blakeniemyjski.com/blog/installing-home-assistant-on-ubuntu/>Installing Home Assistant on Ubuntu</a></h3><time class=published datetime=2020-03-09>March 9, 2020</time></header></article></div><a href=/categories/ class=button>View more posts</a></div></section><section id=mini-bio><h3>About</h3><p>Blake Niemyjski is a full time open source software architect and private pilot. Since the late 90's, Blake's curiosity has been focused around developing software that helps the masses. As a hobbyist developer turned student and professional, Blake's passion is to further his knowledge and create technologies for the future.</p><a href=https://blakeniemyjski.com/about/ class=button>Learn More About Me</a></section><section id=footer><p class=copyright>&copy; 2020
+Blake Niemyjski
+.
+Powered by <a href=//gohugo.io target=_blank rel=noreferrer>Hugo</a></p></section></section></div><a id=back-to-top href=# class="fas fa-arrow-up fa-border fa-2x"></a><script defer src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js></script><script defer src=https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js></script><script defer src=https://use.fontawesome.com/releases/v5.12.0/js/all.js></script><script defer src=https://blakeniemyjski.com/js/util.js></script><script defer src=https://blakeniemyjski.com/js/main.js></script><script defer src=https://blakeniemyjski.com/js/backToTop.js></script><script defer src=https://blakeniemyjski.com/js/disqusLoader.js></script><script defer src=https://blakeniemyjski.com/js/mailing-list.js></script><script defer src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js></script><script defer src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/vbnet.min.js></script><script defer src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/dockerfile.min.js></script><script defer src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/dos.min.js></script><script defer src=https://blakeniemyjski.com/js/init-highlight.js></script></body></html>
