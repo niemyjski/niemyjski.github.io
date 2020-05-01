@@ -42,13 +42,13 @@ a visual indication of the current status. Also, I like specifying an
 <code>Output Node</code> as it allows a node to be part of a series when the Subflow has
 completed. It&rsquo;s worth noting that this <code>Output Node</code> will only be called if the
 notification is sent.</p><script defer src=https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.min.js></script><script defer src=https://blakeniemyjski.com/js/mermaid.js></script><div class=mermaid align=center>graph TD
-StatusNode(fas:fa-heartbeat Status: All) --> StatusOutputNode(Status)
 InputNode(Input) --> AFunctionNode(fas:fa-code Check For Overrides)
 AFunctionNode --> BCurrentStateNode(fas:fa-database Speech Notifications?)
 AFunctionNode --> |Announcement Override| CFunctionNode(fas:fa-code Set Speech Payload)
 BCurrentStateNode --> CFunctionNode
 CFunctionNode --> DCallServiceNode(fas:fa-play Send Speech Notification)
 DCallServiceNode --> OutputNode(Output 1)
+StatusNode(fas:fa-heartbeat Status: All) --> StatusOutputNode(Status)
 style StatusNode fill:#ECF5FF
 style StatusOutputNode fill:#FAFAFB
 style InputNode fill:#FAFAFB
