@@ -1,0 +1,932 @@
+<!doctype html><html lang=en><head><link rel=preconnect href=https://fonts.googleapis.com crossorigin><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=preconnect href=https://cdnjs.cloudflare.com crossorigin><link rel=preconnect href=https://www.google-analytics.com crossorigin><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blakeniemyjski.com\/"},"articleSection":"blog","name":"How-to normalize home volume levels with Node-RED","headline":"How-to normalize home volume levels with Node-RED","description":"This post is going to cover normalizing all media_device volume levels with Home Assistant and Node-RED. If you haven\u0026rsquo;t already, I\u0026rsquo;d recommend reading my previous blog post on sending Text-to-Speech notifications which dives a bit deeper on the optional accessibility Subflow this Flow consumes.\nThis automation normalizes all audio levels in my home based on the time of day using the Amazon Alexa Media Player Integration to bring in all my Amazon Echo and ecobee Switch\u002b devices into Home Assistant.","inLanguage":"en","author":"","creator":"","publisher":"","accountablePerson":"","copyrightHolder":"","copyrightYear":"29290","datePublished":"2020-05-29 08:11:00 -0500 -0500","dateModified":"2020-05-29 08:11:00 -0500 -0500","url":"https:\/\/blakeniemyjski.com\/blog\/how-to-normalize-home-volume-levels-with-node-red\/","wordCount":"2871","keywords":["Home Assistant","Alexa","Volume","Audio","Device State","Node-RED","Automation","Ecobee Switch\u002b","media_device","Blog"]}</script><title>How-to normalize home volume levels with Node-RED</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.71.1"><meta name=description content="Blake Niemyjski"><meta name=twitter:card content="summary"><meta name=twitter:title content="How-to normalize home volume levels with Node-RED"><meta name=twitter:description content="This post is going to cover normalizing all media_device volume levels with Home Assistant and Node-RED. If you haven&rsquo;t already, I&rsquo;d recommend reading my previous blog post on sending Text-to-Speech notifications which dives a bit deeper on the optional accessibility Subflow this Flow consumes.
+This automation normalizes all audio levels in my home based on the time of day using the Amazon Alexa Media Player Integration to bring in all my Amazon Echo and ecobee Switch+ devices into Home Assistant."><meta name=twitter:site content="@blaken"><meta property="og:title" content="How-to normalize home volume levels with Node-RED"><meta property="og:description" content="This post is going to cover normalizing all media_device volume levels with Home Assistant and Node-RED. If you haven&rsquo;t already, I&rsquo;d recommend reading my previous blog post on sending Text-to-Speech notifications which dives a bit deeper on the optional accessibility Subflow this Flow consumes.
+This automation normalizes all audio levels in my home based on the time of day using the Amazon Alexa Media Player Integration to bring in all my Amazon Echo and ecobee Switch+ devices into Home Assistant."><meta property="og:type" content="article"><meta property="og:url" content="https://blakeniemyjski.com/blog/how-to-normalize-home-volume-levels-with-node-red/"><meta property="article:published_time" content="2020-05-29T08:11:00-05:00"><meta property="article:modified_time" content="2020-05-29T08:11:00-05:00"><meta property="og:image" content="https://blakeniemyjski.com//images/logo.png"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="512"><meta property="og:image:height" content="512"><meta itemprop=name content="How-to normalize home volume levels with Node-RED"><meta itemprop=description content="This post is going to cover normalizing all media_device volume levels with Home Assistant and Node-RED. If you haven&rsquo;t already, I&rsquo;d recommend reading my previous blog post on sending Text-to-Speech notifications which dives a bit deeper on the optional accessibility Subflow this Flow consumes.
+This automation normalizes all audio levels in my home based on the time of day using the Amazon Alexa Media Player Integration to bring in all my Amazon Echo and ecobee Switch+ devices into Home Assistant."><meta itemprop=datePublished content="2020-05-29T08:11:00-05:00"><meta itemprop=dateModified content="2020-05-29T08:11:00-05:00"><meta itemprop=wordCount content="2871"><meta itemprop=keywords content="Home Assistant,Alexa,Volume,Audio,Device State,Node-RED,Automation,Ecobee Switch+,media_device,"><link rel=preload as=style href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700&display=swap"><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700&display=swap" media=print onload="this.media='all'"><noscript><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700&display=swap"></noscript><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.13.0/css/all.css><link rel=stylesheet href=https://blakeniemyjski.com/css/main.css><link href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.1/styles/vs.min.css rel=stylesheet type=text/css><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create','UA-3422587-1','auto');ga('send','pageview');}</script></head><body><div id=wrapper><header id=header><h1><a href=https://blakeniemyjski.com/>blog</a></h1><nav class=links><ul><li><a href=https://blakeniemyjski.com/><i class="fas fa-home"></i>&nbsp;Home</a></li><li><a href=https://blakeniemyjski.com/categories/home-automation/><i class="fas fa-magic"></i>&nbsp;Home Automation</a></li><li><a href=https://blakeniemyjski.com/categories/programming/><i class="fas fa-code"></i>&nbsp;Programming</a></li><li><a href=https://blakeniemyjski.com/categories/review/><i class="fas fa-book"></i>&nbsp;Reviews</a></li><li><a href=https://blakeniemyjski.com/categories/public-speaking/><i class="fas fa-comments"></i>&nbsp;Public Speaking</a></li><li><a href=https://blakeniemyjski.com/about/><i class="fas fa-id-card"></i>&nbsp;About</a></li></ul></nav><nav class=main><ul><li id=share-nav class=share-menu style=display:none><a class=fa-share-alt href=#share-menu>Share</a></li><li class=search><a class=fa-search href=#search>Search</a><form id=search method=get action=//google.com/search><input type=text name=q placeholder=Search aria-label=Search>
+<input type=hidden name=as_sitesearch value=https://blakeniemyjski.com/></form></li><li class=menu><a class=fa-bars href=#menu>Menu</a></li></ul></nav></header><section id=menu><section><form class=search method=get action=//google.com/search><input type=text name=q placeholder=Search>
+<input type=hidden name=as_sitesearch value=https://blakeniemyjski.com/></form></section><section><ul class=links><li><a href=https://blakeniemyjski.com/><h3><i class="fas fa-home"></i>&nbsp;Home</h3></a></li><li><a href=https://blakeniemyjski.com/categories/home-automation/><h3><i class="fas fa-magic"></i>&nbsp;Home Automation</h3></a></li><li><a href=https://blakeniemyjski.com/categories/programming/><h3><i class="fas fa-code"></i>&nbsp;Programming</h3></a></li><li><a href=https://blakeniemyjski.com/categories/review/><h3><i class="fas fa-book"></i>&nbsp;Reviews</h3></a></li><li><a href=https://blakeniemyjski.com/categories/public-speaking/><h3><i class="fas fa-comments"></i>&nbsp;Public Speaking</h3></a></li><li><a href=https://blakeniemyjski.com/about/><h3><i class="fas fa-id-card"></i>&nbsp;About</h3></a></li></ul></section><section class=recent-posts><div class=mini-posts><header><h3>Recent Posts</h3></header><article class=mini-post><header><h3><a href=https://blakeniemyjski.com/blog/how-to-normalize-home-volume-levels-with-node-red/>How-to normalize home volume levels with Node-RED</a></h3><time class=published datetime=2020-05-29>May 29, 2020</time></header></article><article class=mini-post><header><h3><a href=https://blakeniemyjski.com/blog/how-to-send-text-to-speech-notifications-with-home-assistant-and-node-red/>How-to send Text-to-Speech notifications with Home Assistant and Node-RED</a></h3><time class=published datetime=2020-04-30>April 30, 2020</time></header></article><article class=mini-post><header><h3><a href=https://blakeniemyjski.com/blog/lets-talk-about-smart-home-accessibility/>Let's talk about smart home accessibility</a></h3><time class=published datetime=2020-03-26>March 26, 2020</time></header></article><article class=mini-post><header><h3><a href=https://blakeniemyjski.com/blog/lessons-learned-from-working-at-home-for-over-a-decade/>Lessons learned from working at home for over a decade</a></h3><time class=published datetime=2020-03-10>March 10, 2020</time></header></article><a href=/categories/ class=button>View more posts</a></div></section></section><section id=share-menu><section id=social-share-nav><ul class=links><header><h3>Share this post <i class="fas fa-smile"></i></h3></header><li><a href="//twitter.com/share?url=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-normalize-home-volume-levels-with-node-red%2f&text=How-to%20normalize%20home%20volume%20levels%20with%20Node-RED&via=blaken" target=_blank rel=noopener class="share-btn twitter" aria-label="Share To Twitter"><i class="fab fa-twitter"></i><p>Twitter</p></a></li><li><a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-normalize-home-volume-levels-with-node-red%2f" target=_blank rel=noopener class="share-btn facebook" aria-label="Share To Facebook"><i class="fab fa-facebook"></i><p>Facebook</p></a></li><li><a href="//reddit.com/submit?url=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-normalize-home-volume-levels-with-node-red%2f&title=How-to%20normalize%20home%20volume%20levels%20with%20Node-RED" target=_blank rel=noopener class="share-btn reddit" aria-label="Share To Reddit"><i class="fab fa-reddit-alien"></i><p>Reddit</p></a></li><li><a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-normalize-home-volume-levels-with-node-red%2f&title=How-to%20normalize%20home%20volume%20levels%20with%20Node-RED" target=_blank rel=noopener class="share-btn linkedin" aria-label="Share To LinkedIn"><i class="fab fa-linkedin"></i><p>LinkedIn</p></a></li><li><a href="mailto:?subject=Check out this post by &body=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-normalize-home-volume-levels-with-node-red%2f" target=_blank rel=noopener class="share-btn email" aria-label="Share To Email"><i class="fas fa-envelope"></i><p>Email</p></a></li></ul></section></section><div id=main><article class=post><header><div class=title><h1><a href=https://blakeniemyjski.com/blog/how-to-normalize-home-volume-levels-with-node-red/>How-to normalize home volume levels with Node-RED</a></h1></div><div class=meta><time class=published datetime=2020-05-29>May 29, 2020</time>
+<span class=author></span><p>14 minute read</p></div></header><section id=social-share><ul class=icons><li><a href="//twitter.com/share?url=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-normalize-home-volume-levels-with-node-red%2f&text=How-to%20normalize%20home%20volume%20levels%20with%20Node-RED&via=blaken" target=_blank rel=noopener class="share-btn twitter" aria-label="Share To Twitter"><i class="fab fa-twitter"></i><p>Twitter</p></a></li><li><a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-normalize-home-volume-levels-with-node-red%2f" target=_blank rel=noopener class="share-btn facebook" aria-label="Share To Facebook"><i class="fab fa-facebook"></i><p>Facebook</p></a></li><li><a href="//reddit.com/submit?url=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-normalize-home-volume-levels-with-node-red%2f&title=How-to%20normalize%20home%20volume%20levels%20with%20Node-RED" target=_blank rel=noopener class="share-btn reddit" aria-label="Share To Reddit"><i class="fab fa-reddit-alien"></i><p>Reddit</p></a></li><li><a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-normalize-home-volume-levels-with-node-red%2f&title=How-to%20normalize%20home%20volume%20levels%20with%20Node-RED" target=_blank rel=noopener class="share-btn linkedin" aria-label="Share To LinkedIn"><i class="fab fa-linkedin"></i><p>LinkedIn</p></a></li><li><a href="mailto:?subject=Check out this post by &body=https%3a%2f%2fblakeniemyjski.com%2fblog%2fhow-to-normalize-home-volume-levels-with-node-red%2f" target=_blank rel=noopener class="share-btn email" aria-label="Share To Email"><i class="fas fa-envelope"></i><p>Email</p></a></li></ul></section><div id=content><p>This post is going to cover normalizing all <code>media_device</code> volume levels with
+<a href=https://www.home-assistant.io>Home Assistant</a> and <a href=https://nodered.org>Node-RED</a>.
+If you haven&rsquo;t already, I&rsquo;d recommend reading my previous blog post on
+<a href=https://blakeniemyjski.com/blog/how-to-send-text-to-speech-notifications-with-home-assistant-and-node-red>sending Text-to-Speech notifications</a> which
+dives a bit deeper on the optional accessibility Subflow this Flow consumes.</p><p>This automation normalizes all audio levels in my home based on the time of day
+using the
+<a href=https://github.com/custom-components/alexa_media_player>Amazon Alexa Media Player Integration</a>
+to bring in all my
+<a href="https://www.amazon.com/all-new-Echo/dp/B07NFTVP7P?tag=niemyjski-20">Amazon Echo</a>
+and <a href="https://www.amazon.com/ecobee-Switch-Smart-Amazon-Built/dp/B0798LCLJ5?tag=niemyjski-20">ecobee Switch+</a>
+devices into Home Assistant.</p><p>This is one of my favorite automations in my house and I think you will enjoy
+it too! I wrote this automation for several reasons:</p><ul><li>I wanted all speakers to be quiet at bed time. This prevents someone from
+getting blasted at 2:00 am in the morning.</li><li>In the morning after I&rsquo;ve had my cup of coffee, I want to increase the audio
+to an acceptable level.</li><li>Automation allows for reuse via sub-flows. This means you can trigger it for
+other use cases like friends are over and music is playing, increase or
+decrease the volume.</li><li>One less thing I have to think about, or constantly touch to change. In
+todays pandemic, this is also one less thing you potentially have to clean!</li><li>You can use this same routine for increasing the volume when triggering an
+alarm.</li><li>All speakers are at the same volume level when playing music on every speaker.</li></ul><p>This Automation Flow is comprised of two different
+<a href=https://nodered.org/docs/user-guide/editor/workspace/Subflows>Subflows</a>.</p><h2 id=input-boolean-to-control-automations>Input Boolean to control automations</h2><p>I highly recommend adding multiple
+<a href=https://www.home-assistant.io/integrations/input_boolean/>Input Booleans</a>
+that controls if a specific automation or all automations can run. It&rsquo;s always
+nice to be able to turn on or off a specific automation or all in the case of
+maintenance. Here are the three <code>input_boolean</code>s that are used in this
+Automation Flow.</p><p>If you choose a different name, be sure to update the code below.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#66d9ef>automation_enable</span>:
+  <span style=color:#66d9ef>name</span>: Enable Automations
+  <span style=color:#66d9ef>icon</span>: mdi:home-automation
+
+<span style=color:#66d9ef>automation_normalize_volume</span>:
+  <span style=color:#66d9ef>name</span>: Automation - Automatically Normalize Volume throughout the day
+  <span style=color:#66d9ef>icon</span>: mdi:volume-high
+
+<span style=color:#66d9ef>automation_notifications</span>:
+  <span style=color:#66d9ef>name</span>: Notify when an automation is triggered
+  <span style=color:#66d9ef>icon</span>: mdi:home-automation
+</code></pre></div><h3 id=set-volume-level-subflow>Set Volume Level Subflow</h3><p>This Subflow will get the current devices volume level, compare the current and
+desired state. If changes are required, it will call the required service to
+change the devices volume level.</p><p>I then create a new Subflow with a status node, one input and one output. This
+Subflow optionally depends on the
+<a href=https://blakeniemyjski.com/blog/how-to-send-text-to-speech-notifications-with-home-assistant-and-node-red#send-automation-speech-notification-subflow><code>Send Automation Speech Notification Subflow</code></a>.</p><script defer src=https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.5.0/mermaid.min.js></script><script defer src=https://blakeniemyjski.com/js/mermaid.js></script><div class=mermaid align=center>graph TD
+InputNode(Input) --> ACurrentStateNode(fas:fa-database Get Current Volume Level)
+ACurrentStateNode --> BFunctionNode(fas:fa-code Set Volume Level Payload)
+BFunctionNode --> CCallServiceNode(fas:fa-play Set Volume Level)
+BFunctionNode --> DCallSubflow(fas:fa-sliders-h Send Automation Speech Notification)
+CCallServiceNode --> OutputNode(Output 1)
+StatusNode(fas:fa-heartbeat Status: All) --> StatusOutputNode(Status)
+style StatusNode fill:#ECF5FF
+style StatusOutputNode fill:#FAFAFB
+style InputNode fill:#FAFAFB
+style ACurrentStateNode fill:#66ACFD
+style BFunctionNode fill:#FBB68F
+style CCallServiceNode fill:#66ACFD
+style DCallSubflow fill:#960031
+style OutputNode fill:#FAFAFB
+linkStyle default stroke-width:2px,fill:none,stroke:#CCD0D4</div><p>Let&rsquo;s break down the Subflow. The incoming message gets passed to the
+<code>Get Current Volume Level</code> Current State node to populate <code>msg.data</code> with the
+entity. This is then passed to the <code>Set Volume Level Payload</code> node which checks
+to see if any changes are required to meet the desired audio level and outputs
+Text-to-Speech (TTS) status messages. If changes are required, the
+<code>Set Volume Level</code> node will call the <code>media_player.volume_set</code> service.</p><p>Here is the JavaScript code contained in the <code>Set Volume Level Payload</code>
+Function node to smartly adjust the volume only if it is needed.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>entity</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>msg</span>.<span style=color:#a6e22e>payload</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>msg</span>.<span style=color:#a6e22e>payload</span>.<span style=color:#a6e22e>entity_id</span>;
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>attributes</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>msg</span>.<span style=color:#a6e22e>data</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>msg</span>.<span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>attributes</span>
+<span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>entity</span> <span style=color:#f92672>||</span> <span style=color:#f92672>!</span><span style=color:#a6e22e>attributes</span>) {
+    <span style=color:#a6e22e>node</span>.<span style=color:#a6e22e>status</span>({ <span style=color:#a6e22e>fill</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;red&#34;</span>, <span style=color:#a6e22e>shape</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;dot&#34;</span>, <span style=color:#a6e22e>text</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Invalid volume payload&#34;</span> });
+    <span style=color:#66d9ef>return</span> [<span style=color:#66d9ef>null</span>, <span style=color:#66d9ef>null</span>];
+}
+
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>desired_volume_level</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>msg</span>.<span style=color:#a6e22e>payload</span>.<span style=color:#a6e22e>volume_level</span> <span style=color:#f92672>||</span> <span style=color:#ae81ff>0</span>;
+<span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>desired_volume_level</span> <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>0.0</span> <span style=color:#f92672>||</span> <span style=color:#a6e22e>desired_volume_level</span> <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>1.0</span>) {
+    <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>message</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Volume level must be between 0 and 1.&#34;</span>;
+    <span style=color:#a6e22e>node</span>.<span style=color:#a6e22e>status</span>({ <span style=color:#a6e22e>fill</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;red&#34;</span>, <span style=color:#a6e22e>shape</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;dot&#34;</span>, <span style=color:#a6e22e>text</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>message</span> });
+    <span style=color:#a6e22e>node</span>.<span style=color:#a6e22e>error</span>(<span style=color:#a6e22e>message</span>);
+
+    <span style=color:#66d9ef>return</span> [<span style=color:#66d9ef>null</span>, {
+        <span style=color:#a6e22e>payload</span><span style=color:#f92672>:</span> {
+            <span style=color:#a6e22e>entity_id</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>entity</span>,
+            <span style=color:#a6e22e>message</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>message</span>
+        }
+    }];
+}
+
+<span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>desired_volume_level</span> <span style=color:#f92672>===</span> <span style=color:#a6e22e>attributes</span>.<span style=color:#a6e22e>volume_level</span>) {
+    <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>message</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Volume level is already at the desired level.&#34;</span>;
+    <span style=color:#a6e22e>node</span>.<span style=color:#a6e22e>status</span>({ <span style=color:#a6e22e>fill</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;grey&#34;</span>, <span style=color:#a6e22e>shape</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;dot&#34;</span>, <span style=color:#a6e22e>text</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>message</span> });
+    <span style=color:#a6e22e>node</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>message</span>);
+    <span style=color:#66d9ef>return</span> [<span style=color:#66d9ef>null</span>, {
+        <span style=color:#a6e22e>payload</span><span style=color:#f92672>:</span> {
+            <span style=color:#a6e22e>entity_id</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>entity</span>,
+            <span style=color:#a6e22e>message</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>message</span>
+        }
+    }];
+}
+
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>volumePayload</span> <span style=color:#f92672>=</span> {
+    <span style=color:#a6e22e>payload</span><span style=color:#f92672>:</span> {
+        <span style=color:#a6e22e>data</span><span style=color:#f92672>:</span> {
+            <span style=color:#a6e22e>entity_id</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>entity</span>,
+            <span style=color:#a6e22e>volume_level</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>desired_volume_level</span>
+        }
+    }
+};
+
+<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>message</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Setting Volume Level to &#34;</span> <span style=color:#f92672>+</span> (<span style=color:#a6e22e>desired_volume_level</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>100</span>) <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34; percent.&#34;</span>;
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>speechPayload</span> <span style=color:#f92672>=</span> {
+    <span style=color:#a6e22e>payload</span><span style=color:#f92672>:</span> {
+        <span style=color:#a6e22e>entity_id</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>entity</span>,
+        <span style=color:#a6e22e>message</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>message</span>
+    }
+};
+
+<span style=color:#a6e22e>node</span>.<span style=color:#a6e22e>status</span>({ <span style=color:#a6e22e>fill</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;green&#34;</span>, <span style=color:#a6e22e>shape</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;dot&#34;</span>, <span style=color:#a6e22e>text</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>message</span> });
+<span style=color:#66d9ef>return</span> [<span style=color:#a6e22e>volumePayload</span>, <span style=color:#a6e22e>speechPayload</span>];
+</code></pre></div><p>As you an see it will output a friendly speech notification payload that will
+be sent to the <code>Send Automation Speech Notification</code> Subflow. If you are not
+using the <code>alexa_media_player</code> Home Assistant addon, you may want to update the
+you&rsquo;ll want to update <code>Set Volume Level Payload</code> Function node to take in a
+volume range you are expecting.</p><p>You can trigger this Subflow by passing a message object with the
+following payload. I recommend using a <a href=https://nodered.org/docs/user-guide/nodes>Inject Node</a>
+to test this out.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js>{
+  <span style=color:#e6db74>&#34;entity_id&#34;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;media_player.amazon_echo_plus&#34;</span>,
+  <span style=color:#e6db74>&#34;volume_level&#34;</span><span style=color:#f92672>:</span><span style=color:#ae81ff>0.4</span>
+}
+</code></pre></div><blockquote><p>Please note, for my Alexa speakers. I use a volume level between the range of
+<code>[0.0..0.10)</code>. To mute, pass <code>0.0</code>.</p></blockquote><h3 id=set-volume-level-on-all-media-devices-subflow>Set Volume Level on All Media Devices Subflow</h3><p>This subflow will get all <code>media_device</code>&rsquo; and then send them one by one to the
+<code>Set Volume Level</code> Subflow.</p><blockquote><p>If you are not using Alexa, you may need to tweak the <code>Get All Media Players</code>
+node as it&rsquo;s returning all devices that have a specific feature attribute
+which says I support changing the volume level.</p></blockquote><script defer src=https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.5.0/mermaid.min.js></script><script defer src=https://blakeniemyjski.com/js/mermaid.js></script><div class=mermaid align=center>graph TD
+InputNode(Input) --> AFunctionNode(fas:fa-code Parse Volume Level)
+AFunctionNode --> BGetEntitiesNode(fas:fa-search Get All Media Players)
+BGetEntitiesNode --> CChangeNode(fas:fa-random Set Volume Level Payload)
+CChangeNode --> DSubflowNode(fas:fa-sliders-h Set Volume Level)
+DSubflowNode --> OutputNode(Output)
+StatusNode(fas:fa-heartbeat Status: All) --> StatusOutputNode(Status)
+style StatusNode fill:#ECF5FF
+style StatusOutputNode fill:#FAFAFB
+style InputNode fill:#FAFAFB
+style AFunctionNode fill:#FBB68F
+style BGetEntitiesNode fill:#66ACFD
+style CChangeNode fill:#FEA530
+style DSubflowNode fill:#960031
+style OutputNode fill:#FAFAFB
+linkStyle default stroke-width:2px,fill:none,stroke:#CCD0D4</div><p>You can trigger this Subflow by passing a message object with the
+following <code>float</code> (e.g. <code>0.1</code>) payload. I recommend using a <a href=https://nodered.org/docs/user-guide/nodes>Inject Node</a>
+to test this out.</p><h3 id=normalize-audio-everywhere-flow>Normalize Audio Everywhere Flow</h3><p>This flow brings the two previous sub flows together to normalize all audio
+levels based on the time of the day. In my home, I set the level to 30% from
+9:00am to 9:00pm, otherwise I set to 10%.</p><p>To have the flow set the volume levels at different times of the day, I use the
+<a href=https://flows.nodered.org/node/node-red-contrib-bigtimer>BigTimer Node</a>
+with an <code>On Time</code> of <code>09:00</code> and a <code>Off Time</code> of <code>21:00</code>. Then I set the
+<code>ON Msg</code> to <code>.3</code> and a <code>OFF Msg</code> to <code>.1</code>. When the timer turns on and turns off,
+it will check to see if my automation flags are turned on. If they are, it will
+enumerate over all media devices and set the volume based on the timers output
+message (e.g., <code>.1</code> or <code>.3</code>).</p><script defer src=https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.5.0/mermaid.min.js></script><script defer src=https://blakeniemyjski.com/js/mermaid.js></script><div class=mermaid align=center>graph TD
+ABigTimerNode(fas:fa-clock Normalize Audio) --> BCurrentStateNode(fas:fa-database Automations Enabled?)
+BCurrentStateNode --> CCurrentStateNode(fas:fa-database Normalize Audio Levels?)
+CCurrentStateNode --> DRbeNode(fas:fa-scroll Only allow changed values)
+DRbeNode --> ECallSubflow(fas:fa-sliders-h Set Volume Level on All Media Devices Subflow)
+StatusNode(fas:fa-heartbeat Status: All) --> StatusOutputNode(Status)
+style StatusNode fill:#ECF5FF
+style StatusOutputNode fill:#FAFAFB
+style ABigTimerNode fill:#3DB39F
+style BCurrentStateNode fill:#66ACFD
+style CCurrentStateNode fill:#66ACFD
+style DRbeNode fill:#FEB95E
+style ECallSubflow fill:#960031
+linkStyle default stroke-width:2px,fill:none,stroke:#CCD0D4</div><p>You can <a href=https://nodered.org/docs/user-guide/editor/workspace/import-export>import this Flow</a>
+and all Subflows shown above by importing the following JSON.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>[
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;7a62a2d3.c0f4a4&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;Subflow&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Send Automation Speech Notification&#34;</span>,
+        <span style=color:#f92672>&#34;info&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;category&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;in&#34;</span>: [
+            {
+                <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>60</span>,
+                <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>100</span>,
+                <span style=color:#f92672>&#34;wires&#34;</span>: [
+                    {
+                        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;87411254.a6ed18&#34;</span>
+                    }
+                ]
+            }
+        ],
+        <span style=color:#f92672>&#34;out&#34;</span>: [
+            {
+                <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>1120</span>,
+                <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>100</span>,
+                <span style=color:#f92672>&#34;wires&#34;</span>: [
+                    {
+                        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;d44cc51a.be0668&#34;</span>,
+                        <span style=color:#f92672>&#34;port&#34;</span>: <span style=color:#ae81ff>0</span>
+                    }
+                ]
+            }
+        ],
+        <span style=color:#f92672>&#34;status&#34;</span>: {
+            <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>220</span>,
+            <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>40</span>,
+            <span style=color:#f92672>&#34;wires&#34;</span>: [
+                {
+                    <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;aef53056.742438&#34;</span>,
+                    <span style=color:#f92672>&#34;port&#34;</span>: <span style=color:#ae81ff>0</span>
+                }
+            ]
+        }
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;89300b1.595bcf8&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;function&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;7a62a2d3.c0f4a4&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Set Speech Payload&#34;</span>,
+        <span style=color:#f92672>&#34;func&#34;</span>: <span style=color:#e6db74>&#34;const entity = flow.get(\&#34;$parent.speech_entity_id\&#34;) || (msg.payload &amp;&amp; msg.payload.entity_id) || \&#34;media_player.office_echo_plus\&#34;;\nconst message = (msg.payload &amp;&amp; msg.payload.message) || \&#34;Automation provided no message\&#34;;\nconst announcement = msg.payload &amp;&amp; msg.payload.announcement;\n\nif (announcement) {\n    node.status({ fill: \&#34;green\&#34;, shape: \&#34;dot\&#34;, text: \&#34;Announce message:\&#34; + message });\n    return {\n        payload:{\n            data: {\n                message: message,\n                data: { \&#34;type\&#34;: \&#34;announce\&#34;, \&#34;method\&#34;: \&#34;all\&#34; },\n                target: !!entity ? [entity] : []\n            }\n        }\n    };\n}\n\nnode.status({ fill: \&#34;green\&#34;, shape: \&#34;dot\&#34;, text: \&#34;TTS message:\&#34; + message });\nreturn {\n    payload:{\n        data: {\n            message: message,\n            data: { type: \&#34;tts\&#34; },\n            target: [entity]\n        }\n    }\n};&#34;</span>,
+        <span style=color:#f92672>&#34;outputs&#34;</span>: <span style=color:#ae81ff>1</span>,
+        <span style=color:#f92672>&#34;noerr&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>700</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>100</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            [
+                <span style=color:#e6db74>&#34;d44cc51a.be0668&#34;</span>
+            ]
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;d44cc51a.be0668&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;api-call-service&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;7a62a2d3.c0f4a4&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Send Speech Notification&#34;</span>,
+        <span style=color:#f92672>&#34;server&#34;</span>: <span style=color:#e6db74>&#34;61956bd4.93df44&#34;</span>,
+        <span style=color:#f92672>&#34;version&#34;</span>: <span style=color:#ae81ff>1</span>,
+        <span style=color:#f92672>&#34;debugenabled&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;service_domain&#34;</span>: <span style=color:#e6db74>&#34;notify&#34;</span>,
+        <span style=color:#f92672>&#34;service&#34;</span>: <span style=color:#e6db74>&#34;alexa_media&#34;</span>,
+        <span style=color:#f92672>&#34;entityId&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;data&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;dataType&#34;</span>: <span style=color:#e6db74>&#34;json&#34;</span>,
+        <span style=color:#f92672>&#34;mergecontext&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;output_location&#34;</span>: <span style=color:#e6db74>&#34;payload&#34;</span>,
+        <span style=color:#f92672>&#34;output_location_type&#34;</span>: <span style=color:#e6db74>&#34;msg&#34;</span>,
+        <span style=color:#f92672>&#34;mustacheAltTags&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>950</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>100</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            []
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;6add9bc6.4c3624&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;api-current-state&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;7a62a2d3.c0f4a4&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Speech Notifications?&#34;</span>,
+        <span style=color:#f92672>&#34;server&#34;</span>: <span style=color:#e6db74>&#34;61956bd4.93df44&#34;</span>,
+        <span style=color:#f92672>&#34;version&#34;</span>: <span style=color:#ae81ff>1</span>,
+        <span style=color:#f92672>&#34;outputs&#34;</span>: <span style=color:#ae81ff>2</span>,
+        <span style=color:#f92672>&#34;halt_if&#34;</span>: <span style=color:#e6db74>&#34;true&#34;</span>,
+        <span style=color:#f92672>&#34;halt_if_type&#34;</span>: <span style=color:#e6db74>&#34;bool&#34;</span>,
+        <span style=color:#f92672>&#34;halt_if_compare&#34;</span>: <span style=color:#e6db74>&#34;is&#34;</span>,
+        <span style=color:#f92672>&#34;override_topic&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;entity_id&#34;</span>: <span style=color:#e6db74>&#34;input_boolean.automation_notifications&#34;</span>,
+        <span style=color:#f92672>&#34;state_type&#34;</span>: <span style=color:#e6db74>&#34;habool&#34;</span>,
+        <span style=color:#f92672>&#34;state_location&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;override_payload&#34;</span>: <span style=color:#e6db74>&#34;none&#34;</span>,
+        <span style=color:#f92672>&#34;entity_location&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;override_data&#34;</span>: <span style=color:#e6db74>&#34;none&#34;</span>,
+        <span style=color:#f92672>&#34;blockInputOverrides&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>440</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>140</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            [
+                <span style=color:#e6db74>&#34;89300b1.595bcf8&#34;</span>
+            ],
+            []
+        ],
+        <span style=color:#f92672>&#34;outputLabels&#34;</span>: [
+            <span style=color:#e6db74>&#34;&#34;</span>,
+            <span style=color:#e6db74>&#34;enabled&#34;</span>
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;aef53056.742438&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;status&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;7a62a2d3.c0f4a4&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;scope&#34;</span>: <span style=color:#66d9ef>null</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>100</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>40</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            []
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;87411254.a6ed18&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;function&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;7a62a2d3.c0f4a4&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Check for overrides&#34;</span>,
+        <span style=color:#f92672>&#34;func&#34;</span>: <span style=color:#e6db74>&#34;const alwaysSpeak = msg.payload &amp;&amp; msg.payload.announcement\nif (alwaysSpeak) {\n    return [msg, null];\n} else {\n    return [null, msg];\n}&#34;</span>,
+        <span style=color:#f92672>&#34;outputs&#34;</span>: <span style=color:#ae81ff>2</span>,
+        <span style=color:#f92672>&#34;noerr&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>210</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>100</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            [
+                <span style=color:#e6db74>&#34;89300b1.595bcf8&#34;</span>
+            ],
+            [
+                <span style=color:#e6db74>&#34;6add9bc6.4c3624&#34;</span>
+            ]
+        ],
+        <span style=color:#f92672>&#34;outputLabels&#34;</span>: [
+            <span style=color:#e6db74>&#34;Bypass notification&#34;</span>,
+            <span style=color:#e6db74>&#34;Check for notifications&#34;</span>
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;974adda.d2ea92&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;Subflow&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Set Volume Level&#34;</span>,
+        <span style=color:#f92672>&#34;info&#34;</span>: <span style=color:#e6db74>&#34;Set Volume Level&#34;</span>,
+        <span style=color:#f92672>&#34;category&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;in&#34;</span>: [
+            {
+                <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>80</span>,
+                <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>120</span>,
+                <span style=color:#f92672>&#34;wires&#34;</span>: [
+                    {
+                        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;4c86fd47.0875e4&#34;</span>
+                    }
+                ]
+            }
+        ],
+        <span style=color:#f92672>&#34;out&#34;</span>: [
+            {
+                <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>960</span>,
+                <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>100</span>,
+                <span style=color:#f92672>&#34;wires&#34;</span>: [
+                    {
+                        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;263d05a1.5b6672&#34;</span>,
+                        <span style=color:#f92672>&#34;port&#34;</span>: <span style=color:#ae81ff>0</span>
+                    }
+                ]
+            }
+        ],
+        <span style=color:#f92672>&#34;status&#34;</span>: {
+            <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>240</span>,
+            <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>40</span>,
+            <span style=color:#f92672>&#34;wires&#34;</span>: [
+                {
+                    <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;7a662cd5.162a24&#34;</span>,
+                    <span style=color:#f92672>&#34;port&#34;</span>: <span style=color:#ae81ff>0</span>
+                }
+            ]
+        }
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;563c252e.ce31e4&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;function&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;974adda.d2ea92&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Set Volume Level Payload&#34;</span>,
+        <span style=color:#f92672>&#34;func&#34;</span>: <span style=color:#e6db74>&#34;const entity = msg.payload &amp;&amp; msg.payload.entity_id;\nconst attributes = msg.data &amp;&amp; msg.data.attributes\nif (!entity || !attributes) {\n    node.status({ fill: \&#34;red\&#34;, shape: \&#34;dot\&#34;, text: \&#34;Invalid volume payload\&#34; });\n    return [null, null];\n}\n\nconst desired_volume_level = msg.payload.volume_level || 0;\nif (desired_volume_level &lt; 0.0 || desired_volume_level &gt; 1.0) {\n    let message = \&#34;Volume level must be between 0 and 1.\&#34;; \n    node.status({ fill: \&#34;red\&#34;, shape: \&#34;dot\&#34;, text: message });\n    node.error(message);\n    \n    return [null, { \n        payload: {\n            entity_id: entity,\n            message: message\n        }\n    }];\n}\n\nif (desired_volume_level === attributes.volume_level) {\n    let message = \&#34;Volume level is already at the desired level.\&#34;; \n    node.status({ fill: \&#34;grey\&#34;, shape: \&#34;dot\&#34;, text: message });\n    node.log(message);\n    return [null, { \n        payload: {\n            entity_id: entity,\n            message: message\n        }\n    }];\n}\n\nconst volumePayload = { \n    payload: {\n        data: {\n            entity_id: entity,\n            volume_level: desired_volume_level\n        } \n    }\n};\n\nlet message = \&#34;Setting Volume Level to \&#34; + (desired_volume_level * 100) + \&#34; percent.\&#34;;\nconst speechPayload = { \n    payload: {\n        entity_id: entity,\n        message: message\n    }\n};\n\nnode.status({ fill: \&#34;green\&#34;, shape: \&#34;dot\&#34;, text: message });\nreturn [volumePayload, speechPayload];&#34;</span>,
+        <span style=color:#f92672>&#34;outputs&#34;</span>: <span style=color:#ae81ff>2</span>,
+        <span style=color:#f92672>&#34;noerr&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>510</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>120</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            [
+                <span style=color:#e6db74>&#34;263d05a1.5b6672&#34;</span>
+            ],
+            [
+                <span style=color:#e6db74>&#34;b41308c0.f41e9&#34;</span>
+            ]
+        ],
+        <span style=color:#f92672>&#34;inputLabels&#34;</span>: [
+            <span style=color:#e6db74>&#34;Volume Percentage&#34;</span>
+        ],
+        <span style=color:#f92672>&#34;outputLabels&#34;</span>: [
+            <span style=color:#e6db74>&#34;Volume Level Payload&#34;</span>,
+            <span style=color:#e6db74>&#34;Speech Notification Payload&#34;</span>
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;263d05a1.5b6672&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;api-call-service&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;974adda.d2ea92&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Set Volume Level&#34;</span>,
+        <span style=color:#f92672>&#34;server&#34;</span>: <span style=color:#e6db74>&#34;61956bd4.93df44&#34;</span>,
+        <span style=color:#f92672>&#34;version&#34;</span>: <span style=color:#ae81ff>1</span>,
+        <span style=color:#f92672>&#34;debugenabled&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;service_domain&#34;</span>: <span style=color:#e6db74>&#34;media_player&#34;</span>,
+        <span style=color:#f92672>&#34;service&#34;</span>: <span style=color:#e6db74>&#34;volume_set&#34;</span>,
+        <span style=color:#f92672>&#34;entityId&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;data&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;dataType&#34;</span>: <span style=color:#e6db74>&#34;json&#34;</span>,
+        <span style=color:#f92672>&#34;mergecontext&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;output_location&#34;</span>: <span style=color:#e6db74>&#34;payload&#34;</span>,
+        <span style=color:#f92672>&#34;output_location_type&#34;</span>: <span style=color:#e6db74>&#34;msg&#34;</span>,
+        <span style=color:#f92672>&#34;mustacheAltTags&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>770</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>100</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            []
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;b41308c0.f41e9&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;Subflow:7a62a2d3.c0f4a4&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;974adda.d2ea92&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;env&#34;</span>: [],
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>830</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>160</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            []
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;4c86fd47.0875e4&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;api-current-state&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;974adda.d2ea92&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Get Current Volume Level&#34;</span>,
+        <span style=color:#f92672>&#34;server&#34;</span>: <span style=color:#e6db74>&#34;61956bd4.93df44&#34;</span>,
+        <span style=color:#f92672>&#34;version&#34;</span>: <span style=color:#ae81ff>1</span>,
+        <span style=color:#f92672>&#34;outputs&#34;</span>: <span style=color:#ae81ff>1</span>,
+        <span style=color:#f92672>&#34;halt_if&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;halt_if_type&#34;</span>: <span style=color:#e6db74>&#34;str&#34;</span>,
+        <span style=color:#f92672>&#34;halt_if_compare&#34;</span>: <span style=color:#e6db74>&#34;is&#34;</span>,
+        <span style=color:#f92672>&#34;override_topic&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;entity_id&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;state_type&#34;</span>: <span style=color:#e6db74>&#34;str&#34;</span>,
+        <span style=color:#f92672>&#34;state_location&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;override_payload&#34;</span>: <span style=color:#e6db74>&#34;none&#34;</span>,
+        <span style=color:#f92672>&#34;entity_location&#34;</span>: <span style=color:#e6db74>&#34;data&#34;</span>,
+        <span style=color:#f92672>&#34;override_data&#34;</span>: <span style=color:#e6db74>&#34;msg&#34;</span>,
+        <span style=color:#f92672>&#34;blockInputOverrides&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>250</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>120</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            [
+                <span style=color:#e6db74>&#34;563c252e.ce31e4&#34;</span>
+            ]
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;7a662cd5.162a24&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;status&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;974adda.d2ea92&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;scope&#34;</span>: <span style=color:#66d9ef>null</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>120</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>40</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            []
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;76be143e.dbb0e4&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;Subflow&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Set Volume Level on All Media Devices&#34;</span>,
+        <span style=color:#f92672>&#34;info&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;category&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;in&#34;</span>: [
+            {
+                <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>100</span>,
+                <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>120</span>,
+                <span style=color:#f92672>&#34;wires&#34;</span>: [
+                    {
+                        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;642c5f33.bd92a8&#34;</span>
+                    }
+                ]
+            }
+        ],
+        <span style=color:#f92672>&#34;out&#34;</span>: [
+            {
+                <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>1120</span>,
+                <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>120</span>,
+                <span style=color:#f92672>&#34;wires&#34;</span>: [
+                    {
+                        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;15d5ddae.8f64c2&#34;</span>,
+                        <span style=color:#f92672>&#34;port&#34;</span>: <span style=color:#ae81ff>0</span>
+                    }
+                ]
+            }
+        ],
+        <span style=color:#f92672>&#34;env&#34;</span>: [],
+        <span style=color:#f92672>&#34;color&#34;</span>: <span style=color:#e6db74>&#34;#DDAA99&#34;</span>,
+        <span style=color:#f92672>&#34;status&#34;</span>: {
+            <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>1120</span>,
+            <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>40</span>,
+            <span style=color:#f92672>&#34;wires&#34;</span>: [
+                {
+                    <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;ba88f8d5.b5d648&#34;</span>,
+                    <span style=color:#f92672>&#34;port&#34;</span>: <span style=color:#ae81ff>0</span>
+                },
+                {
+                    <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;15d5ddae.8f64c2&#34;</span>,
+                    <span style=color:#f92672>&#34;port&#34;</span>: <span style=color:#ae81ff>0</span>
+                }
+            ]
+        }
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;f467a711.24ca3&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;ha-get-entities&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;76be143e.dbb0e4&#34;</span>,
+        <span style=color:#f92672>&#34;server&#34;</span>: <span style=color:#e6db74>&#34;61956bd4.93df44&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Get All Media Players&#34;</span>,
+        <span style=color:#f92672>&#34;rules&#34;</span>: [
+            {
+                <span style=color:#f92672>&#34;property&#34;</span>: <span style=color:#e6db74>&#34;attributes.supported_features&#34;</span>,
+                <span style=color:#f92672>&#34;logic&#34;</span>: <span style=color:#e6db74>&#34;is&#34;</span>,
+                <span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#e6db74>&#34;56253&#34;</span>,
+                <span style=color:#f92672>&#34;valueType&#34;</span>: <span style=color:#e6db74>&#34;num&#34;</span>
+            },
+            {
+                <span style=color:#f92672>&#34;property&#34;</span>: <span style=color:#e6db74>&#34;attributes.available&#34;</span>,
+                <span style=color:#f92672>&#34;logic&#34;</span>: <span style=color:#e6db74>&#34;is&#34;</span>,
+                <span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#e6db74>&#34;true&#34;</span>,
+                <span style=color:#f92672>&#34;valueType&#34;</span>: <span style=color:#e6db74>&#34;bool&#34;</span>
+            }
+        ],
+        <span style=color:#f92672>&#34;output_type&#34;</span>: <span style=color:#e6db74>&#34;split&#34;</span>,
+        <span style=color:#f92672>&#34;output_empty_results&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;output_location_type&#34;</span>: <span style=color:#e6db74>&#34;msg&#34;</span>,
+        <span style=color:#f92672>&#34;output_location&#34;</span>: <span style=color:#e6db74>&#34;payload&#34;</span>,
+        <span style=color:#f92672>&#34;output_results_count&#34;</span>: <span style=color:#ae81ff>1</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>480</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>120</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            [
+                <span style=color:#e6db74>&#34;1fe46c89.0e0543&#34;</span>
+            ]
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;1fe46c89.0e0543&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;change&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;76be143e.dbb0e4&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Set Volume Level Payload&#34;</span>,
+        <span style=color:#f92672>&#34;rules&#34;</span>: [
+            {
+                <span style=color:#f92672>&#34;t&#34;</span>: <span style=color:#e6db74>&#34;set&#34;</span>,
+                <span style=color:#f92672>&#34;p&#34;</span>: <span style=color:#e6db74>&#34;payload.volume_level&#34;</span>,
+                <span style=color:#f92672>&#34;pt&#34;</span>: <span style=color:#e6db74>&#34;msg&#34;</span>,
+                <span style=color:#f92672>&#34;to&#34;</span>: <span style=color:#e6db74>&#34;volume_level&#34;</span>,
+                <span style=color:#f92672>&#34;tot&#34;</span>: <span style=color:#e6db74>&#34;flow&#34;</span>
+            }
+        ],
+        <span style=color:#f92672>&#34;action&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;property&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;from&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;to&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;reg&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>730</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>120</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            [
+                <span style=color:#e6db74>&#34;15d5ddae.8f64c2&#34;</span>
+            ]
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;642c5f33.bd92a8&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;function&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;76be143e.dbb0e4&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Parse Volume Level&#34;</span>,
+        <span style=color:#f92672>&#34;func&#34;</span>: <span style=color:#e6db74>&#34;const volumeLevel = parseFloat(msg.payload);\nnode.status({ fill: \&#34;green\&#34;, shape: \&#34;dot\&#34;, text: \&#34;Volume Level: \&#34; + volumeLevel });\nflow.set(\&#34;volume_level\&#34;, volumeLevel);\nreturn msg;&#34;</span>,
+        <span style=color:#f92672>&#34;outputs&#34;</span>: <span style=color:#ae81ff>1</span>,
+        <span style=color:#f92672>&#34;noerr&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>250</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>120</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            [
+                <span style=color:#e6db74>&#34;f467a711.24ca3&#34;</span>
+            ]
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;15d5ddae.8f64c2&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;Subflow:974adda.d2ea92&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;76be143e.dbb0e4&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;env&#34;</span>: [],
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>970</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>120</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            []
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;ba88f8d5.b5d648&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;status&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;76be143e.dbb0e4&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;scope&#34;</span>: <span style=color:#66d9ef>null</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>140</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>40</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            []
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;3c07a459.ce903c&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;tab&#34;</span>,
+        <span style=color:#f92672>&#34;label&#34;</span>: <span style=color:#e6db74>&#34;Normalize Audio&#34;</span>,
+        <span style=color:#f92672>&#34;disabled&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;info&#34;</span>: <span style=color:#e6db74>&#34;Normalize All Audio&#34;</span>
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;e949c86f.c9ca9&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;api-current-state&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;3c07a459.ce903c&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Automations Enabled?&#34;</span>,
+        <span style=color:#f92672>&#34;server&#34;</span>: <span style=color:#e6db74>&#34;61956bd4.93df44&#34;</span>,
+        <span style=color:#f92672>&#34;version&#34;</span>: <span style=color:#ae81ff>1</span>,
+        <span style=color:#f92672>&#34;outputs&#34;</span>: <span style=color:#ae81ff>2</span>,
+        <span style=color:#f92672>&#34;halt_if&#34;</span>: <span style=color:#e6db74>&#34;true&#34;</span>,
+        <span style=color:#f92672>&#34;halt_if_type&#34;</span>: <span style=color:#e6db74>&#34;bool&#34;</span>,
+        <span style=color:#f92672>&#34;halt_if_compare&#34;</span>: <span style=color:#e6db74>&#34;is&#34;</span>,
+        <span style=color:#f92672>&#34;override_topic&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;entity_id&#34;</span>: <span style=color:#e6db74>&#34;input_boolean.automation_enable&#34;</span>,
+        <span style=color:#f92672>&#34;state_type&#34;</span>: <span style=color:#e6db74>&#34;habool&#34;</span>,
+        <span style=color:#f92672>&#34;state_location&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;override_payload&#34;</span>: <span style=color:#e6db74>&#34;none&#34;</span>,
+        <span style=color:#f92672>&#34;entity_location&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;override_data&#34;</span>: <span style=color:#e6db74>&#34;none&#34;</span>,
+        <span style=color:#f92672>&#34;blockInputOverrides&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>560</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>100</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            [
+                <span style=color:#e6db74>&#34;ec5308f5.aefff&#34;</span>
+            ],
+            []
+        ],
+        <span style=color:#f92672>&#34;outputLabels&#34;</span>: [
+            <span style=color:#e6db74>&#34;&#34;</span>,
+            <span style=color:#e6db74>&#34;enabled&#34;</span>
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;ec5308f5.aefff&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;api-current-state&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;3c07a459.ce903c&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Normalize Audio Levels?&#34;</span>,
+        <span style=color:#f92672>&#34;server&#34;</span>: <span style=color:#e6db74>&#34;61956bd4.93df44&#34;</span>,
+        <span style=color:#f92672>&#34;version&#34;</span>: <span style=color:#ae81ff>1</span>,
+        <span style=color:#f92672>&#34;outputs&#34;</span>: <span style=color:#ae81ff>2</span>,
+        <span style=color:#f92672>&#34;halt_if&#34;</span>: <span style=color:#e6db74>&#34;true&#34;</span>,
+        <span style=color:#f92672>&#34;halt_if_type&#34;</span>: <span style=color:#e6db74>&#34;bool&#34;</span>,
+        <span style=color:#f92672>&#34;halt_if_compare&#34;</span>: <span style=color:#e6db74>&#34;is&#34;</span>,
+        <span style=color:#f92672>&#34;override_topic&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;entity_id&#34;</span>: <span style=color:#e6db74>&#34;input_boolean.automation_normalize_volume&#34;</span>,
+        <span style=color:#f92672>&#34;state_type&#34;</span>: <span style=color:#e6db74>&#34;habool&#34;</span>,
+        <span style=color:#f92672>&#34;state_location&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;override_payload&#34;</span>: <span style=color:#e6db74>&#34;none&#34;</span>,
+        <span style=color:#f92672>&#34;entity_location&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;override_data&#34;</span>: <span style=color:#e6db74>&#34;none&#34;</span>,
+        <span style=color:#f92672>&#34;blockInputOverrides&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>810</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>100</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            [
+                <span style=color:#e6db74>&#34;bde48ad8.814ac&#34;</span>
+            ],
+            []
+        ],
+        <span style=color:#f92672>&#34;outputLabels&#34;</span>: [
+            <span style=color:#e6db74>&#34;&#34;</span>,
+            <span style=color:#e6db74>&#34;enabled&#34;</span>
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;dbf47096.3a7dc&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;inject&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;3c07a459.ce903c&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;topic&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;payload&#34;</span>: <span style=color:#e6db74>&#34;on&#34;</span>,
+        <span style=color:#f92672>&#34;payloadType&#34;</span>: <span style=color:#e6db74>&#34;str&#34;</span>,
+        <span style=color:#f92672>&#34;repeat&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;crontab&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;once&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;onceDelay&#34;</span>: <span style=color:#ae81ff>0.1</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>110</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>80</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            [
+                <span style=color:#e6db74>&#34;4608374e.2fd4d8&#34;</span>
+            ]
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;6eace9df.a5aa68&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;inject&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;3c07a459.ce903c&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;topic&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;payload&#34;</span>: <span style=color:#e6db74>&#34;off&#34;</span>,
+        <span style=color:#f92672>&#34;payloadType&#34;</span>: <span style=color:#e6db74>&#34;str&#34;</span>,
+        <span style=color:#f92672>&#34;repeat&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;crontab&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;once&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;onceDelay&#34;</span>: <span style=color:#ae81ff>0.1</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>110</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>120</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            [
+                <span style=color:#e6db74>&#34;4608374e.2fd4d8&#34;</span>
+            ]
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;4608374e.2fd4d8&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;bigtimer&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;3c07a459.ce903c&#34;</span>,
+        <span style=color:#f92672>&#34;outtopic&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;outpayload1&#34;</span>: <span style=color:#e6db74>&#34;.3&#34;</span>,
+        <span style=color:#f92672>&#34;outpayload2&#34;</span>: <span style=color:#e6db74>&#34;.1&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Normalize Audio&#34;</span>,
+        <span style=color:#f92672>&#34;comment&#34;</span>: <span style=color:#e6db74>&#34;Set audio to 30% from 9:00am to 9:00pm, otherwise set to 10%&#34;</span>,
+        <span style=color:#f92672>&#34;lat&#34;</span>: <span style=color:#e6db74>&#34;44.50&#34;</span>,
+        <span style=color:#f92672>&#34;lon&#34;</span>: <span style=color:#e6db74>&#34;-88.06&#34;</span>,
+        <span style=color:#f92672>&#34;starttime&#34;</span>: <span style=color:#e6db74>&#34;540&#34;</span>,
+        <span style=color:#f92672>&#34;endtime&#34;</span>: <span style=color:#e6db74>&#34;1260&#34;</span>,
+        <span style=color:#f92672>&#34;startoff&#34;</span>: <span style=color:#e6db74>&#34;0&#34;</span>,
+        <span style=color:#f92672>&#34;endoff&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;startoff2&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;endoff2&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;offs&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;outtext1&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;outtext2&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;timeout&#34;</span>: <span style=color:#e6db74>&#34;240&#34;</span>,
+        <span style=color:#f92672>&#34;sun&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;mon&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;tue&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;wed&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;thu&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;fri&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;sat&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;jan&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;feb&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;mar&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;apr&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;may&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;jun&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;jul&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;aug&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;sep&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;oct&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;nov&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;dec&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;day1&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;month1&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;day2&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;month2&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;day3&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;month3&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;day4&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;month4&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;day5&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;month5&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;day6&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;month6&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;day7&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;month7&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;day8&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;month8&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;day9&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;month9&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;day10&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;month10&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;day11&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;month11&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;day12&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;month12&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;d1&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;w1&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;d2&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;w2&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;d3&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;w3&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;d4&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;w4&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;d5&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;w5&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;d6&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;w6&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;xday1&#34;</span>: <span style=color:#e6db74>&#34;0&#34;</span>,
+        <span style=color:#f92672>&#34;xmonth1&#34;</span>: <span style=color:#e6db74>&#34;0&#34;</span>,
+        <span style=color:#f92672>&#34;xday2&#34;</span>: <span style=color:#e6db74>&#34;0&#34;</span>,
+        <span style=color:#f92672>&#34;xmonth2&#34;</span>: <span style=color:#e6db74>&#34;0&#34;</span>,
+        <span style=color:#f92672>&#34;xday3&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;xmonth3&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;xday4&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;xmonth4&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;xday5&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;xmonth5&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;xday6&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;xmonth6&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;xd1&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;xw1&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;xd2&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;xw2&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;xd3&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;xw3&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;xd4&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;xw4&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;xd5&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;xw5&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;xd6&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;xw6&#34;</span>: <span style=color:#ae81ff>0</span>,
+        <span style=color:#f92672>&#34;suspend&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;random&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;repeat&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;atstart&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;odd&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;even&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>340</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>100</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            [
+                <span style=color:#e6db74>&#34;e949c86f.c9ca9&#34;</span>
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;418865ec.975eec&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;inject&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;3c07a459.ce903c&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;topic&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;payload&#34;</span>: <span style=color:#e6db74>&#34;auto&#34;</span>,
+        <span style=color:#f92672>&#34;payloadType&#34;</span>: <span style=color:#e6db74>&#34;str&#34;</span>,
+        <span style=color:#f92672>&#34;repeat&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;crontab&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;once&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;onceDelay&#34;</span>: <span style=color:#ae81ff>0.1</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>110</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>160</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            [
+                <span style=color:#e6db74>&#34;4608374e.2fd4d8&#34;</span>
+            ]
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;e314dd72.39afe&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;inject&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;3c07a459.ce903c&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;topic&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;payload&#34;</span>: <span style=color:#e6db74>&#34;manual&#34;</span>,
+        <span style=color:#f92672>&#34;payloadType&#34;</span>: <span style=color:#e6db74>&#34;str&#34;</span>,
+        <span style=color:#f92672>&#34;repeat&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;crontab&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;once&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;onceDelay&#34;</span>: <span style=color:#ae81ff>0.1</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>110</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>200</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            [
+                <span style=color:#e6db74>&#34;4608374e.2fd4d8&#34;</span>
+            ]
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;bde48ad8.814ac&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;rbe&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;3c07a459.ce903c&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Only allow changed values&#34;</span>,
+        <span style=color:#f92672>&#34;func&#34;</span>: <span style=color:#e6db74>&#34;rbe&#34;</span>,
+        <span style=color:#f92672>&#34;gap&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;start&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;inout&#34;</span>: <span style=color:#e6db74>&#34;out&#34;</span>,
+        <span style=color:#f92672>&#34;property&#34;</span>: <span style=color:#e6db74>&#34;payload&#34;</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>480</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>180</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            [
+                <span style=color:#e6db74>&#34;4173c48c.381f84&#34;</span>
+            ]
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;4173c48c.381f84&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;Subflow:76be143e.dbb0e4&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;3c07a459.ce903c&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;env&#34;</span>: [],
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>790</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>180</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: [
+            []
+        ]
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;d45759b3.b76fe8&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;comment&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;3c07a459.ce903c&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Set audio to 30% from 9:00am to 9:00pm, otherwise set to 10%&#34;</span>,
+        <span style=color:#f92672>&#34;info&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>270</span>,
+        <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>40</span>,
+        <span style=color:#f92672>&#34;wires&#34;</span>: []
+    },
+    {
+        <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;61956bd4.93df44&#34;</span>,
+        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;server&#34;</span>,
+        <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Home Assistant&#34;</span>,
+        <span style=color:#f92672>&#34;legacy&#34;</span>: <span style=color:#66d9ef>false</span>,
+        <span style=color:#f92672>&#34;addon&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;rejectUnauthorizedCerts&#34;</span>: <span style=color:#66d9ef>true</span>,
+        <span style=color:#f92672>&#34;ha_boolean&#34;</span>: <span style=color:#e6db74>&#34;y|yes|true|on|home|open&#34;</span>,
+        <span style=color:#f92672>&#34;connectionDelay&#34;</span>: <span style=color:#66d9ef>true</span>
+    }
+]
+</code></pre></div><h2 id=nodered-vs-home-assistant-automations>NodeRed VS Home Assistant Automations</h2><p>I personally prefer writing all my automations in NodeRed as it helps me
+visually see the flow of the automation. I&rsquo;d love to hear what you like and if
+you&rsquo;d like to see automations written using the built in Home Assistant
+Automations.</p></div><footer><ul class=stats><li class=categories><ul><i class="fas fa-folder"></i><li><a class=article-category-link href=https://blakeniemyjski.com/categories/home-automation>Home Automation</a></li></ul></li><li class=tags><ul><i class="fas fa-tags"></i><li><a class=article-category-link href=https://blakeniemyjski.com/tags/home-assistant>Home Assistant</a></li><li><a class=article-category-link href=https://blakeniemyjski.com/tags/alexa>Alexa</a></li><li><a class=article-category-link href=https://blakeniemyjski.com/tags/volume>Volume</a></li><li><a class=article-category-link href=https://blakeniemyjski.com/tags/audio>Audio</a></li><li><a class=article-category-link href=https://blakeniemyjski.com/tags/device-state>Device State</a></li><li><a class=article-category-link href=https://blakeniemyjski.com/tags/node-red>Node-RED</a></li><li><a class=article-category-link href=https://blakeniemyjski.com/tags/automation>Automation</a></li><li><a class=article-category-link href=https://blakeniemyjski.com/tags/ecobee-switch+>Ecobee Switch+</a></li><li><a class=article-category-link href=https://blakeniemyjski.com/tags/media_device>media_device</a></li></ul></li></ul></footer><div id=mailing-list><h3>Join the mailing list</h3>Get notified of new posts and related content to your inbox. I will never sell
+you anything and I will NEVER sell your email address.<form class=email-form name=newsletter method=post data-netlify=true netlify-honeypot=bot-field><div hidden aria-hidden=true><label>Don't fill this out if you're human:
+<input name=bot-field></label></div><label for=email>Your email address</label><div class=email-container><input type=email name=email placeholder=Email id=email required>
+<button name=submit class=button type=submit id=subscribe>Subscribe</button></div></form></div></article><article class=post><div class=disqus></div><script>(function(){var disqus_shortname='niemyjski';window.disqusLoaderSettings={element:'.disqus',options:{scriptUrl:'//'+disqus_shortname+'.disqus.com/embed.js',disqusConfig:function(){this.page.url="https:\/\/blakeniemyjski.com\/blog\/how-to-normalize-home-volume-levels-with-node-red\/";this.page.identifier="https:\/\/blakeniemyjski.com\/blog\/how-to-normalize-home-volume-levels-with-node-red\/";}}};})();</script></article><ul class="actions pagination"><li><a href=https://blakeniemyjski.com/blog/how-to-send-text-to-speech-notifications-with-home-assistant-and-node-red/ class="button big previous">How-to send Text-to-Speech notifications with Home Assistant and Node-RED</a></li></ul></div><section id=sidebar><section id=intro><a href=https://blakeniemyjski.com/><img src=https://blakeniemyjski.com/img/logo.jpeg class=intro-circle width=250 alt="Blake Niemyjski"></a><header><h2>Blake Niemyjski</h2><p>Passionate about building software</p></header><ul class=icons><li><a href=https://blakeniemyjski.com/index.xml type=application/rss+xml target=_blank title=RSS><i class="fas fa-rss"></i></a></li><li><a href=//github.com/niemyjski target=_blank title=GitHub><i class="fab fa-github"></i></a></li><li><a href=//stackoverflow.com/users/199701 target=_blank title="Stack Overflow"><i class="fab fa-stack-overflow"></i></a></li><li><a href=//linkedin.com/in/niemyjski target=_blank title=LinkedIn><i class="fab fa-linkedin"></i></a></li><li><a href=//reddit.com/user/bniemyjski target=_blank title=Reddit><i class="fab fa-reddit"></i></a></li><li><a href=//youtube.com/bniemyjski target=_blank title=YouTube><i class="fab fa-youtube"></i></a></li><li><a href=//instagram.com/blake.niemyjski target=_blank title=Instagram><i class="fab fa-instagram"></i></a></li><li><a href=//twitter.com/blaken target=_blank title=Twitter><i class="fab fa-twitter"></i></a></li><li><a href=mailto:bniemyjski@gmail.com title=Email><i class="fas fa-envelope"></i></a></li></ul></section><section class=recent-posts><div class=mini-posts><header><h3>Recent Posts</h3></header><div class=posts-container><article class=mini-post><header><h3><a href=https://blakeniemyjski.com/blog/how-to-normalize-home-volume-levels-with-node-red/>How-to normalize home volume levels with Node-RED</a></h3><time class=published datetime=2020-05-29>May 29, 2020</time></header></article><article class=mini-post><header><h3><a href=https://blakeniemyjski.com/blog/how-to-send-text-to-speech-notifications-with-home-assistant-and-node-red/>How-to send Text-to-Speech notifications with Home Assistant and Node-RED</a></h3><time class=published datetime=2020-04-30>April 30, 2020</time></header></article><article class=mini-post><header><h3><a href=https://blakeniemyjski.com/blog/lets-talk-about-smart-home-accessibility/>Let's talk about smart home accessibility</a></h3><time class=published datetime=2020-03-26>March 26, 2020</time></header></article><article class=mini-post><header><h3><a href=https://blakeniemyjski.com/blog/lessons-learned-from-working-at-home-for-over-a-decade/>Lessons learned from working at home for over a decade</a></h3><time class=published datetime=2020-03-10>March 10, 2020</time></header></article></div><a href=/categories/ class=button>View more posts</a></div></section><section id=mini-bio><h3>About</h3><p>Blake Niemyjski is a full time open source software architect and private pilot. Since the late 90's, Blake's curiosity has been focused around developing software that helps the masses. As a hobbyist developer turned student and professional, Blake's passion is to further his knowledge and create technologies for the future.</p><a href=https://blakeniemyjski.com/about/ class=button>Learn More About Me</a></section><section id=footer><p class=copyright>&copy; 2020
+Blake Niemyjski
+.
+Powered by <a href=//gohugo.io target=_blank rel=noreferrer>Hugo</a></p></section></section></div><a id=back-to-top href=# class="fas fa-arrow-up fa-border fa-2x"></a><script defer src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js></script><script defer src=https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js></script><script defer src=https://use.fontawesome.com/releases/v5.13.0/js/all.js></script><script defer src=https://blakeniemyjski.com/js/util.js></script><script defer src=https://blakeniemyjski.com/js/main.js></script><script defer src=https://blakeniemyjski.com/js/backToTop.js></script><script defer src=https://blakeniemyjski.com/js/disqusLoader.js></script><script defer src=https://blakeniemyjski.com/js/mailing-list.js></script><script defer src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.1/highlight.min.js></script><script defer src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.1/languages/vbnet.min.js></script><script defer src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.1/languages/dockerfile.min.js></script><script defer src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.1/languages/dos.min.js></script><script defer src=https://blakeniemyjski.com/js/init-highlight.js></script></body></html>
