@@ -5,7 +5,7 @@
 <a href=https://www.home-assistant.io>Home Assistant</a> and <a href=https://nodered.org>Node-RED</a>.
 If you haven&rsquo;t already, I&rsquo;d recommend reading my previous blog post on
 <a href=https://blakeniemyjski.com/blog/how-to-send-text-to-speech-notifications-with-home-assistant-and-node-red>sending Text-to-Speech notifications</a> which
-dives a bit deeper on the optional accessibility Subflow this Flow consumes.</p><p>This automation normalizes all audio levels in my home based on the time of day
+dives a bit deeper on the optional accessibility Subflow this Flow consumes.</p><p>This automation normalizes all volume levels in my home based on the time of day
 using the
 <a href=https://github.com/custom-components/alexa_media_player>Amazon Alexa Media Player Integration</a>
 to bring in all my
@@ -13,7 +13,7 @@ to bring in all my
 and <a href="https://www.amazon.com/ecobee-Switch-Smart-Amazon-Built/dp/B0798LCLJ5?tag=niemyjski-20">ecobee Switch+</a>
 devices into Home Assistant.</p><p>This is one of my favorite automations in my house and I think you will enjoy
 it too! I wrote this automation for several reasons:</p><ul><li>I wanted all speakers to be quiet at bed time. This prevents someone from
-getting blasted at 2:00 am in the morning.</li><li>In the morning after I&rsquo;ve had my cup of coffee, I want to increase the audio
+getting blasted at 2:00 am in the morning.</li><li>In the morning after I&rsquo;ve had my cup of coffee, I want to increase the volume
 to an acceptable level.</li><li>Automation allows for reuse via sub-flows. This means you can trigger it for
 other use cases like friends are over and music is playing, increase or
 decrease the volume.</li><li>One less thing I have to think about, or constantly touch to change. In
@@ -57,7 +57,7 @@ style OutputNode fill:#FAFAFB
 linkStyle default stroke-width:2px,fill:none,stroke:#CCD0D4</div><p>Let&rsquo;s break down the Subflow. The incoming message gets passed to the
 <code>Get Current Volume Level</code> Current State node to populate <code>msg.data</code> with the
 entity. This is then passed to the <code>Set Volume Level Payload</code> node which checks
-to see if any changes are required to meet the desired audio level and outputs
+to see if any changes are required to meet the desired volume level and outputs
 Text-to-Speech (TTS) status messages. If changes are required, the
 <code>Set Volume Level</code> node will call the <code>media_player.volume_set</code> service.</p><p>Here is the JavaScript code contained in the <code>Set Volume Level Payload</code>
 Function node to smartly adjust the volume only if it is needed.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>entity</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>msg</span>.<span style=color:#a6e22e>payload</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>msg</span>.<span style=color:#a6e22e>payload</span>.<span style=color:#a6e22e>entity_id</span>;
@@ -143,7 +143,7 @@ style DSubflowNode fill:#960031
 style OutputNode fill:#FAFAFB
 linkStyle default stroke-width:2px,fill:none,stroke:#CCD0D4</div><p>You can trigger this Subflow by passing a message object with the
 following <code>float</code> (e.g. <code>0.1</code>) payload. I recommend using a <a href=https://nodered.org/docs/user-guide/nodes>Inject Node</a>
-to test this out.</p><h3 id=normalize-audio-everywhere-flow>Normalize Audio Everywhere Flow</h3><p>This flow brings the two previous sub flows together to normalize all audio
+to test this out.</p><h3 id=normalize-volume-levels-everywhere-flow>Normalize Volume Levels Everywhere Flow</h3><p>This flow brings the two previous sub flows together to normalize all volume
 levels based on the time of the day. In my home, I set the level to 30% from
 9:00am to 9:00pm, otherwise I set to 10%.</p><p>To have the flow set the volume levels at different times of the day, I use the
 <a href=https://flows.nodered.org/node/node-red-contrib-bigtimer>BigTimer Node</a>
@@ -152,8 +152,8 @@ with an <code>On Time</code> of <code>09:00</code> and a <code>Off Time</code> o
 it will check to see if my automation flags are turned on. If they are, it will
 enumerate over all media devices and set the volume based on the timers output
 message (e.g., <code>.1</code> or <code>.3</code>).</p><script defer src=https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.5.0/mermaid.min.js></script><script defer src=https://blakeniemyjski.com/js/mermaid.js></script><div class=mermaid align=center>graph TD
-ABigTimerNode(fas:fa-clock Normalize Audio) --> BCurrentStateNode(fas:fa-database Automations Enabled?)
-BCurrentStateNode --> CCurrentStateNode(fas:fa-database Normalize Audio Levels?)
+ABigTimerNode(fas:fa-clock Normalize Volume) --> BCurrentStateNode(fas:fa-database Automations Enabled?)
+BCurrentStateNode --> CCurrentStateNode(fas:fa-database Normalize Volume Levels?)
 CCurrentStateNode --> DRbeNode(fas:fa-scroll Only allow changed values)
 DRbeNode --> ECallSubflow(fas:fa-sliders-h Set Volume Level on All Media Devices Subflow)
 StatusNode(fas:fa-heartbeat Status: All) --> StatusOutputNode(Status)
@@ -601,9 +601,9 @@ and all Subflows shown above by importing the following JSON.</p><div class=high
     {
         <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;3c07a459.ce903c&#34;</span>,
         <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;tab&#34;</span>,
-        <span style=color:#f92672>&#34;label&#34;</span>: <span style=color:#e6db74>&#34;Normalize Audio&#34;</span>,
+        <span style=color:#f92672>&#34;label&#34;</span>: <span style=color:#e6db74>&#34;Normalize Volume&#34;</span>,
         <span style=color:#f92672>&#34;disabled&#34;</span>: <span style=color:#66d9ef>false</span>,
-        <span style=color:#f92672>&#34;info&#34;</span>: <span style=color:#e6db74>&#34;Normalize All Audio&#34;</span>
+        <span style=color:#f92672>&#34;info&#34;</span>: <span style=color:#e6db74>&#34;Normalize All Volume&#34;</span>
     },
     {
         <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;e949c86f.c9ca9&#34;</span>,
@@ -641,7 +641,7 @@ and all Subflows shown above by importing the following JSON.</p><div class=high
         <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;ec5308f5.aefff&#34;</span>,
         <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;api-current-state&#34;</span>,
         <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;3c07a459.ce903c&#34;</span>,
-        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Normalize Audio Levels?&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Normalize Volume Levels?&#34;</span>,
         <span style=color:#f92672>&#34;server&#34;</span>: <span style=color:#e6db74>&#34;61956bd4.93df44&#34;</span>,
         <span style=color:#f92672>&#34;version&#34;</span>: <span style=color:#ae81ff>1</span>,
         <span style=color:#f92672>&#34;outputs&#34;</span>: <span style=color:#ae81ff>2</span>,
@@ -716,8 +716,8 @@ and all Subflows shown above by importing the following JSON.</p><div class=high
         <span style=color:#f92672>&#34;outtopic&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
         <span style=color:#f92672>&#34;outpayload1&#34;</span>: <span style=color:#e6db74>&#34;.3&#34;</span>,
         <span style=color:#f92672>&#34;outpayload2&#34;</span>: <span style=color:#e6db74>&#34;.1&#34;</span>,
-        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Normalize Audio&#34;</span>,
-        <span style=color:#f92672>&#34;comment&#34;</span>: <span style=color:#e6db74>&#34;Set audio to 30% from 9:00am to 9:00pm, otherwise set to 10%&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Normalize Volume&#34;</span>,
+        <span style=color:#f92672>&#34;comment&#34;</span>: <span style=color:#e6db74>&#34;Set volume to 30% from 9:00am to 9:00pm, otherwise set to 10%&#34;</span>,
         <span style=color:#f92672>&#34;lat&#34;</span>: <span style=color:#e6db74>&#34;44.50&#34;</span>,
         <span style=color:#f92672>&#34;lon&#34;</span>: <span style=color:#e6db74>&#34;-88.06&#34;</span>,
         <span style=color:#f92672>&#34;starttime&#34;</span>: <span style=color:#e6db74>&#34;540&#34;</span>,
@@ -899,7 +899,7 @@ and all Subflows shown above by importing the following JSON.</p><div class=high
         <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;d45759b3.b76fe8&#34;</span>,
         <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;comment&#34;</span>,
         <span style=color:#f92672>&#34;z&#34;</span>: <span style=color:#e6db74>&#34;3c07a459.ce903c&#34;</span>,
-        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Set audio to 30% from 9:00am to 9:00pm, otherwise set to 10%&#34;</span>,
+        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Set volume to 30% from 9:00am to 9:00pm, otherwise set to 10%&#34;</span>,
         <span style=color:#f92672>&#34;info&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
         <span style=color:#f92672>&#34;x&#34;</span>: <span style=color:#ae81ff>270</span>,
         <span style=color:#f92672>&#34;y&#34;</span>: <span style=color:#ae81ff>40</span>,
