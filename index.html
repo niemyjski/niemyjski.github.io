@@ -43,7 +43,7 @@ Subflow optionally depends on the
 InputNode(Input) --> ACurrentStateNode(fas:fa-database Get Current Volume Level)
 ACurrentStateNode --> BFunctionNode(fas:fa-code Set Volume Level Payload)
 BFunctionNode --> CCallServiceNode(fas:fa-play Set Volume Level)
-BFunctionNode --> DCallSubflow(fas:fa-sliders-h Send Automation Speech Notification)
+BFunctionNode --> DCallSubflowNode(fas:fa-sliders-h Send Automation Speech Notification)
 CCallServiceNode --> OutputNode(Output 1)
 StatusNode(fas:fa-heartbeat Status: All) --> StatusOutputNode(Status)
 style StatusNode fill:#ECF5FF
@@ -52,7 +52,7 @@ style InputNode fill:#FAFAFB
 style ACurrentStateNode fill:#66ACFD
 style BFunctionNode fill:#FBB68F
 style CCallServiceNode fill:#66ACFD
-style DCallSubflow fill:#960031
+style DCallSubflowNode fill:#FF75A1
 style OutputNode fill:#FAFAFB
 linkStyle default stroke-width:2px,fill:none,stroke:#CCD0D4</div><p>Let&rsquo;s break down the Subflow. The incoming message gets passed to the
 <code>Get Current Volume Level</code> Current State node to populate <code>msg.data</code> with the
@@ -139,7 +139,7 @@ style InputNode fill:#FAFAFB
 style AFunctionNode fill:#FBB68F
 style BGetEntitiesNode fill:#66ACFD
 style CChangeNode fill:#FEA530
-style DSubflowNode fill:#960031
+style DSubflowNode fill:#FF75A1
 style OutputNode fill:#FAFAFB
 linkStyle default stroke-width:2px,fill:none,stroke:#CCD0D4</div><p>You can trigger this Subflow by passing a message object with the
 following <code>float</code> (e.g. <code>0.1</code>) payload. I recommend using a <a href=https://nodered.org/docs/user-guide/nodes>Inject Node</a>
@@ -163,7 +163,7 @@ style ABigTimerNode fill:#3DB39F
 style BCurrentStateNode fill:#66ACFD
 style CCurrentStateNode fill:#66ACFD
 style DRbeNode fill:#FEB95E
-style ECallSubflow fill:#960031
+style ECallSubflow fill:#FF75A1
 linkStyle default stroke-width:2px,fill:none,stroke:#CCD0D4</div><p>You can <a href=https://nodered.org/docs/user-guide/editor/workspace/import-export>import this Flow</a>
 and all Subflows shown above by importing the following JSON.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>[
     {
